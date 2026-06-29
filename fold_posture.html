@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+<title>Forward Fold & Posture Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+@keyframes shimmer{0%{background-position:-400% center}100%{background-position:400% center}}
+@keyframes softPulse{0%,100%{box-shadow:0 4px 20px rgba(255,182,193,0.3),0 0 40px rgba(255,105,180,0.15)}50%{box-shadow:0 4px 30px rgba(255,182,193,0.5),0 0 60px rgba(255,105,180,0.25)}}
+@keyframes heartFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.05)}}
+@keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes titleFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes borderSoft{0%{border-color:rgba(255,182,193,0.5)}50%{border-color:rgba(255,105,180,0.7)}100%{border-color:rgba(255,182,193,0.5)}}
+
+:root{
+  --bg:#1a0d12;
+  --bg2:#221018;
+  --bg3:#2a1520;
+  --hot:#ff69b4;
+  --pink:#ffb6c1;
+  --blush:#ffe4e8;
+  --rose:#ff1493;
+  --gold:#f0c8a0;
+  --cream:#fff8f0;
+  --ink:#fff0f4;
+  --ink2:#ffd8e4;
+  --ink3:#d4a0b8;
+  --border:rgba(255,182,193,0.25);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+
+body{
+  font-family:'Nunito',-apple-system,sans-serif;
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 0% 0%,rgba(255,105,180,0.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 100% 100%,rgba(255,182,193,0.08) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(255,20,147,0.04) 0%,transparent 70%);
+  color:var(--ink);
+  padding:10px;
+  -webkit-text-size-adjust:100%;
+  min-height:100vh;
+}
+
+/* TITLE */
+.title{
+  padding:14px 16px;
+  font-weight:900;
+  font-size:20px;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493,#ffb6c1,#f0c8a0,#ffb6c1,#ff69b4);
+  background-size:300%;
+  animation:titleFlow 5s ease infinite;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  border-bottom:2px solid rgba(255,182,193,0.3);
+  white-space:nowrap;
+  position:relative;
+  letter-spacing:0.3px;
+}
+.title::after{
+  content:'🩷 ✨ 🩷';
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:13px;-webkit-text-fill-color:initial;
+  animation:heartFloat 2s ease-in-out infinite;
+}
+
+/* CARDS */
+.card,.day-panel{
+  background:linear-gradient(145deg,rgba(255,182,193,0.08),rgba(34,16,24,0.97),rgba(255,105,180,0.05));
+  border-radius:20px;
+  margin:10px 0;
+  border:1px solid rgba(255,182,193,0.25);
+  animation:softPulse 4s ease-in-out infinite, borderSoft 6s ease-in-out infinite;
+  overflow:hidden;position:relative;
+  box-shadow:0 8px 32px rgba(255,20,147,0.12),0 2px 8px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.card::before,.day-panel::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(145deg,rgba(255,182,193,0.06) 0%,transparent 35%,rgba(255,105,180,0.03) 100%);
+  pointer-events:none;
+}
+.card::after,.day-panel::after{
+  content:'🩷';position:absolute;top:10px;right:12px;
+  font-size:12px;animation:twinkle 3s ease-in-out infinite;pointer-events:none;
+}
+.outer,.wrap{width:100%;padding-bottom:40px}
+
+/* SECTIONS */
+.section{
+  grid-column:1/-1;font-weight:800;font-size:12px;
+  padding:8px 14px;border-radius:12px;margin:10px 0 4px;
+  letter-spacing:1.2px;text-transform:uppercase;
+  position:relative;font-family:'Nunito',sans-serif;
+}
+
+.red    {background:linear-gradient(135deg,rgba(255,100,150,0.2),rgba(255,100,150,0.06));color:#ffb6c1;border-left:3px solid rgba(255,100,150,0.6)}
+.blue   {background:linear-gradient(135deg,rgba(180,140,255,0.2),rgba(180,140,255,0.06));color:#d4b0ff;border-left:3px solid rgba(180,140,255,0.5)}
+.green  {background:linear-gradient(135deg,rgba(150,230,180,0.15),rgba(150,230,180,0.05));color:#b0f0c8;border-left:3px solid rgba(150,230,180,0.4)}
+.orange {background:linear-gradient(135deg,rgba(255,200,100,0.2),rgba(255,200,100,0.06));color:#ffd8a0;border-left:3px solid rgba(255,200,100,0.5)}
+.amber  {background:linear-gradient(135deg,rgba(240,200,160,0.2),rgba(240,200,160,0.06));color:var(--gold);border-left:3px solid rgba(240,200,160,0.5)}
+.pink   {background:linear-gradient(135deg,rgba(255,182,193,0.25),rgba(255,105,180,0.08));color:#ffd0dd;border-left:3px solid rgba(255,182,193,0.7)}
+.cyan   {background:linear-gradient(135deg,rgba(140,220,255,0.15),rgba(140,220,255,0.05));color:#b0e8ff;border-left:3px solid rgba(140,220,255,0.4)}
+.purple {background:linear-gradient(135deg,rgba(210,160,255,0.2),rgba(210,160,255,0.06));color:#e8c8ff;border-left:3px solid rgba(210,160,255,0.5)}
+.rose   {background:linear-gradient(135deg,rgba(255,105,180,0.25),rgba(255,20,147,0.08));color:#ffccd8;border-left:3px solid rgba(255,105,180,0.7)}
+
+/* TEXT */
+.text{
+  font-size:14px;line-height:1.7;padding:5px 10px;
+  border-radius:8px;color:var(--ink2);
+  word-break:break-word;white-space:nowrap;
+  font-family:'Nunito',sans-serif;
+}
+
+/* INPUT BOXES */
+.box{
+  height:34px;
+  border:1px solid rgba(255,182,193,0.45);
+  border-radius:14px;
+  background:rgba(255,182,193,0.06);
+  color:#ffccd8;
+  font-size:13px;font-weight:700;
+  padding:0 10px;
+  font-family:'Nunito',sans-serif;
+  -webkit-appearance:none;appearance:none;outline:none;
+  transition:all 0.3s;
+  box-shadow:0 0 8px rgba(255,182,193,0.1),inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.box:focus{
+  border-color:var(--hot);
+  box-shadow:0 0 0 3px rgba(255,105,180,0.2),0 0 16px rgba(255,105,180,0.4);
+  background:rgba(255,105,180,0.08);color:#fff;
+}
+
+/* BACK BUTTON */
+.backbtn{
+  display:inline-block;text-decoration:none;
+  background:linear-gradient(135deg,#ff1493,#ff69b4,#ffb6c1,#ff69b4,#ff1493);
+  background-size:300%;animation:shimmer 3s linear infinite;
+  color:#fff;font-weight:800;font-size:14px;
+  font-family:'Nunito',sans-serif;
+  padding:10px 22px;border-radius:16px;margin:8px 0;
+  box-shadow:0 0 20px rgba(255,105,180,0.5),0 4px 15px rgba(0,0,0,0.3);
+  letter-spacing:0.3px;
+}
+
+/* HOWTO POPUPS */
+.howto-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.extap{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:var(--ink2)}
+.extap:hover{color:var(--hot)}
+.howto{
+  display:none;grid-column:1/-1;
+  border:1px solid rgba(255,182,193,0.3);border-radius:16px;
+  margin:4px 0 12px;
+  background:linear-gradient(135deg,rgba(255,105,180,0.07),rgba(255,182,193,0.04));
+  padding:14px 16px;
+  animation:softPulse 4s ease-in-out infinite;
+}
+.howto .text{white-space:normal;color:var(--ink3);font-size:13px;line-height:1.8}
+.howto .section{margin-top:6px;font-size:11px}
+.howto .backbtn{font-size:12px;padding:6px 14px;margin:10px 0 0}
+
+/* ACCORDIONS */
+details{
+  background:linear-gradient(145deg,rgba(255,182,193,0.06),var(--bg2));
+  border-radius:18px;margin:8px 0;
+  border:1px solid rgba(255,182,193,0.2);overflow:hidden;
+  animation:softPulse 4s ease-in-out infinite;
+  box-shadow:0 4px 20px rgba(255,20,147,0.08);
+}
+details summary{
+  display:flex;align-items:center;justify-content:space-between;
+  font-weight:800;font-size:15px;padding:14px 16px;
+  cursor:pointer;list-style:none;-webkit-appearance:none;
+  user-select:none;-webkit-user-select:none;
+  background:linear-gradient(135deg,rgba(255,105,180,0.12),rgba(255,182,193,0.08),rgba(240,200,160,0.05));
+  background-size:300%;animation:shimmer 6s linear infinite;
+  color:var(--pink);letter-spacing:0.2px;
+  font-family:'Nunito',sans-serif;
+}
+details summary::-webkit-details-marker{display:none}
+details summary .arrow{
+  font-size:22px;opacity:0.9;flex-shrink:0;margin-left:8px;
+  transition:transform 0.3s;color:var(--hot);
+  animation:heartFloat 2s ease-in-out infinite;
+}
+details[open] summary .arrow{transform:rotate(90deg)}
+details .ac-body{border-top:1px solid rgba(255,182,193,0.15)}
+details .ac-body .content{display:grid;grid-template-columns:1fr 110px;gap:3px 6px;padding:12px 16px 18px;align-items:center;width:100%}
+details.howto{grid-column:1/-1;margin:3px 0 10px;border:1px solid rgba(255,182,193,0.25);border-radius:16px}
+details.howto>summary{padding:10px 14px;font-size:14px}
+details.howto>summary::before{content:"🩷 "}
+details.howto[open]>summary::before{content:"🩷 "}
+details.howto>summary::-webkit-details-marker{display:none}
+
+a.exlink{color:var(--gold);text-underline-offset:2px}
+a.exlink::after{content:" 🩷";font-size:11px;opacity:0.8;text-decoration:none}
+
+.panels{padding:0 6px}
+.row{display:contents}
+.fullrow{grid-column:1/-1}
+html{scroll-behavior:smooth}
+[id^="instr-"],[id^="ex-"]{scroll-margin-top:10px}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:rgba(255,182,193,0.05)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ff69b4,#ffb6c1);border-radius:3px}
+
+.content{display:grid;grid-template-columns:max-content 110px;gap:3px 6px;padding:6px;align-items:center;width:max-content;min-width:100%}
+
+</style>
+
+<style id="timer-styles">
+.wt-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:9999;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;padding:8px 14px;background:rgba(20,8,16,0.97);border-bottom:1px solid rgba(255,105,180,0.3);box-sizing:border-box;width:100%}
+.wt-title-text{font-size:13px;font-weight:900;font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
+</style>
+</head>
+<body>
+<canvas id="hearts-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.75"></canvas>
+<script>
+(function(){
+  var c=document.getElementById('hearts-canvas');
+  var ctx=c.getContext('2d');
+  var hearts=[];
+  var starbursts=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  var pinkColors=['#ff69b4','#ff1493','#ffb6c1','#ff85c2','#ff3399','#ffccd8'];
+  var sparkleColors=['#ffffff','#fff0f5','#ffe0ee','#ffccdd','#f0c0d0','#ffd0e8'];
+
+  // Floating hearts
+  for(var i=0;i<30;i++){
+    hearts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight+window.innerHeight,
+      size:Math.random()*28+12,
+      speed:Math.random()*0.5+0.2,
+      drift:Math.random()*0.4-0.2,
+      opacity:Math.random()*0.65+0.35,
+      color:pinkColors[Math.floor(Math.random()*pinkColors.length)],
+      wobble:Math.random()*Math.PI*2,
+      wobbleSpeed:Math.random()*0.02+0.01
+    });
+  }
+
+  // Star burst sparkles — the sharp cross-ray ones like in the image
+  for(var j=0;j<40;j++){
+    starbursts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      size:Math.random()*10+3,
+      phase:Math.random()*Math.PI*2,
+      speed:Math.random()*0.025+0.008,
+      color:sparkleColors[Math.floor(Math.random()*sparkleColors.length)],
+      rotation:Math.random()*Math.PI/4,  // slight rotation variety
+      gold:Math.random()<0.3  // 30% gold sparkles
+    });
+  }
+
+  function drawHeart(ctx,x,y,s,color,alpha){
+    ctx.save();
+    ctx.globalAlpha=alpha;ctx.fillStyle=color;
+    ctx.shadowColor=color;ctx.shadowBlur=s*1.2;
+    ctx.beginPath();
+    ctx.moveTo(x,y+s*0.3);
+    ctx.bezierCurveTo(x,y,x-s*0.55,y,x-s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x-s*0.55,y+s*0.6,x,y+s*0.9,x,y+s*1.05);
+    ctx.bezierCurveTo(x,y+s*0.9,x+s*0.55,y+s*0.6,x+s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x+s*0.55,y,x,y,x,y+s*0.3);
+    ctx.fill();ctx.restore();
+  }
+
+  function drawStarburst(ctx, sb){
+    // The sharp 4-point star with long thin rays — like camera lens flare / glitter
+    var brightness = Math.abs(Math.sin(sb.phase));
+    var alpha = brightness * 0.45 + 0.03;
+    var s = sb.size * (0.3 + 0.7 * brightness);
+    var color = sb.gold ? ('#f0c060') : sb.color;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(sb.x, sb.y);
+    ctx.rotate(sb.rotation);
+
+    // Glow halo behind
+    var grad = ctx.createRadialGradient(0,0,0, 0,0,s*3);
+    grad.addColorStop(0, sb.gold ? 'rgba(240,192,96,0.6)' : 'rgba(255,255,255,0.5)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(0,0,s*3,0,Math.PI*2);
+    ctx.fill();
+
+    // Main cross rays — long thin diamond shape
+    ctx.shadowColor = color;
+    ctx.shadowBlur = s * 2;
+    ctx.fillStyle = color;
+
+    // Long vertical ray
+    ctx.beginPath();
+    ctx.moveTo(0, -s*5);
+    ctx.lineTo(s*0.15, -s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, -s*0.5);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, s*5);
+    ctx.lineTo(s*0.15, s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, s*0.5);
+    ctx.closePath();ctx.fill();
+
+    // Long horizontal ray
+    ctx.beginPath();
+    ctx.moveTo(-s*5, 0);
+    ctx.lineTo(-s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*5, 0);
+    ctx.lineTo(s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    // Diagonal shorter rays
+    ctx.globalAlpha = alpha * 0.5;
+    ctx.beginPath();
+    ctx.moveTo(-s*3, -s*3);
+    ctx.lineTo(-s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, -s*3);
+    ctx.lineTo(s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(-s*3, s*3);
+    ctx.lineTo(-s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, s*3);
+    ctx.lineTo(s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    // Bright centre dot
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(0,0,s*0.4,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.restore();ctx.globalAlpha=1;
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+
+    // Hearts
+    hearts.forEach(function(h){
+      h.y-=h.speed;h.wobble+=h.wobbleSpeed;
+      h.x+=Math.sin(h.wobble)*0.4+h.drift;
+      if(h.y<-80){h.y=c.height+60;h.x=Math.random()*c.width;}
+      drawHeart(ctx,h.x,h.y,h.size,h.color,h.opacity);
+    });
+
+    // Starbursts — twinkling in place
+    starbursts.forEach(function(sb){
+      sb.phase+=sb.speed;
+      drawStarburst(ctx, sb);
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+
+
+
+<div class="wrap">
+<div class="card">
+<div class="wt-sticky"><span class="wt-title-text">❤️ Fold & Posture</span></div><div class="title" style="display:none">❤️🧍 Forward Fold, Posture & 6-Week Program</div>
+<div class="content">
+<div class="section blue">🕐 Overview</div>
+<div class="row"><div class="text blue">10 minutes • Daily • 5 Steps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Patience • Consistency • Control • Progress</div><input class="box" type="text" /></div>
+<div class="section amber">1️⃣ Wall Hinge Drill</div>
+<div class="row"><div class="text amber">2 x 10 reps • Slow • Controlled</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber">Hips back</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber">Chest down</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber">Flat back</div><input class="box" type="text" /></div>
+<div class="section orange">2️⃣ Tempo RDL (40kg)</div>
+<div class="row"><div class="text orange">3 x 8 reps • 3 sec down + up</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange">Keep hips back</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange">Feel hamstrings</div><input class="box" type="text" /></div>
+<div class="section green">3️⃣ Mid-Shin Hold</div>
+<div class="row"><div class="text green">3 x 30 sec • Relax • Breathe</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Pull chest toward thighs</div><input class="box" type="text" /></div>
+<div class="section cyan">4️⃣ Forward Fold Ladder</div>
+<div class="row"><div class="text cyan">5 rounds • 20 sec each level</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 1 — Knees</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 2 — Mid-shin</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 3 — Ankles</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 4 — Fingertips floor</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 5 — Palms flat</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Level 6 — Chest</div><input class="box" type="text" /></div>
+<div class="section purple">5️⃣ Deep Fold Hold</div>
+<div class="row"><div class="text purple">1 x 60 sec • No pain • Breathe</div><input class="box" type="text" /></div>
+<div class="row"><div class="text purple">Relax • Expand • Stay longer</div><input class="box" type="text" /></div>
+<div class="section rose">📈 Progress Milestones</div>
+<div class="row"><div class="text rose">1 — Hands to knees</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose">2 — Mid-shin</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose">3 — Ankles</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose">4 — Fingertips floor</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose">5 — Palms flat</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose">6 — Chest to thighs</div><input class="box" type="text" /></div>
+<div class="section red">🔑 Key Cues</div>
+<div class="row"><div class="text red">Hips back</div><input class="box" type="text" /></div>
+<div class="row"><div class="text red">Spine long</div><input class="box" type="text" /></div>
+<div class="row"><div class="text red">Knees soft</div><input class="box" type="text" /></div>
+<div class="row"><div class="text red">Breathe deep</div><input class="box" type="text" /></div>
+<div class="section pink">💪 Hamstrings</div>
+<div class="row"><div class="text pink">Biceps femoris</div><input class="box" type="text" /></div>
+<div class="row"><div class="text pink">Semitendinosus</div><input class="box" type="text" /></div>
+<div class="row"><div class="text pink">Semimembranosus</div><input class="box" type="text" /></div>
+<div class="section green">✅ Stay Consistent</div>
+<div class="row"><div class="text green">10 mins / day</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green">6 days / week</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Track progress</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Trust the process</div><input class="box" type="text" /></div>
+<div class="section amber">💬 Mantra</div>
+<div class="row"><div class="text amber">Every rep • Every second • Every day = Progress</div><input class="box" type="text" /></div>
+<div class="section red">🎯 Why Posture Matters</div>
+<div class="row red"><div class="text red">Good posture makes muscle look bigger and waist look smaller</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">A forward head and rounded shoulders hide back definition</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">Anterior pelvic tilt can flatten glutes visually</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">10 mins daily posture work = visible difference within weeks</div><input class="box" type="text" /></div>
+<div class="section blue">🧠 Daily Posture Habits</div>
+<div class="row blue"><div class="text blue">Ears over shoulders over hips — check in a mirror daily</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Chin tucked slightly — not forward</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Shoulders back and down — not shrugged</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Ribcage stacked over pelvis — not flared</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Slight posterior tilt when standing — glutes lightly on</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Feet hip-width, weight even — not rocking to one side</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">At desk: screen at eye level, elbows at 90 degrees</div><input class="box" type="text" /></div>
+<div class="row blue"><div class="text blue">Phone: raise it to eye level — stop looking down</div><input class="box" type="text" /></div>
+<div class="section red">🔴 Common Problems to Fix</div>
+<div class="row red"><div class="text red">Forward head posture — stretch neck flexors, strengthen deep neck</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">Rounded shoulders — face pulls, band pull-aparts daily</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">Anterior pelvic tilt — glute activation, hip flexor stretching</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">Rib flare — 90/90 breathing already in your plan helps this</div><input class="box" type="text" /></div>
+<div class="row red"><div class="text red">Hyperextended knees — soft knee habit when standing</div><input class="box" type="text" /></div>
+<div class="section green">🟢 Gym Posture Drills — Daily</div>
+<div class="row green"><div class="text green">Wall angel x 10 — back flat to wall, arms slide up</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Chin tuck x 10 — gentle, hold 3 sec each</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Doorway chest stretch — 30 sec each side</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Hip flexor kneeling stretch — 45 sec each side</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Glute squeeze standing — 3 x 10 sec holds</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Scapular retraction x 15 — pinch shoulder blades</div><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Dead hang — 20–30 sec if available</div><input class="box" type="text" /></div>
+<div class="section purple">💜 Posture Stack — Add to Morning Routine</div>
+<div class="row purple"><div class="text purple">On waking: chin tucks x 10</div><input class="box" type="text" /></div>
+<div class="row purple"><div class="text purple">Wall angels x 10</div><input class="box" type="text" /></div>
+<div class="row purple"><div class="text purple">Hip flexor stretch x 45 sec/side</div><input class="box" type="text" /></div>
+<div class="row purple"><div class="text purple">Glute activation — bridge x 15 before getting up</div><input class="box" type="text" /></div>
+<div class="row purple"><div class="text purple">Check posture in mirror before leaving house</div><input class="box" type="text" /></div>
+<div class="section pink">🩷 How to Stand for Best Visual Effect</div>
+<div class="row pink"><div class="text pink">Feet slightly turned out — opens hips visually</div><input class="box" type="text" /></div>
+<div class="row pink"><div class="text pink">Weight shifted to one hip — creates curve</div><input class="box" type="text" /></div>
+<div class="row pink"><div class="text pink">Shoulders back — chest open not pushed out</div><input class="box" type="text" /></div>
+<div class="row pink"><div class="text pink">Chin slightly down — elongates neck</div><input class="box" type="text" /></div>
+<div class="row pink"><div class="text pink">Core lightly braced — not sucked in aggressively</div><input class="box" type="text" /></div>
+<div class="row pink"><div class="text pink">Slight posterior tilt — lifts and rounds glutes visually</div><input class="box" type="text" /></div>
+<div class="section amber">🧡 Posture Exercises Already in Your Plan</div>
+<div class="row amber"><div class="text amber">Face pull — upper back and external rotation ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">Band pull-apart — rear delt and scapular control ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">RKC plank — anti-extension core ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">90/90 breathing — rib cage position ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">Dead bug — core and spine stability ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">Vacuum holds — deep abdominal control ✅</div><input class="box" type="text" /></div>
+<div class="row amber"><div class="text amber">Forward fold work — hamstring length and hinge pattern ✅</div><input class="box" type="text" /></div>
+<div class="section cyan">✅ Weekly Posture Check</div>
+<div class="row cyan"><div class="text cyan">Took mirror photo from side — head position good?</div><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Shoulders even — not one higher than other?</div><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Hips level — not tilted?</div><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Doing daily posture stack?</div><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Reduced phone looking down time?</div><input class="box" type="text" /></div>
+<div class="section blue">📋 About This Program</div>
+<div class="row"><div class="text blue fullrow">6 weeks of daily practice to unlock hamstrings and achieve a full forward fold</div></div>
+<div class="row"><div class="text blue fullrow">Consistency is everything — 15 min daily beats 2 hours once a week</div></div>
+<div class="row"><div class="text blue fullrow">Never bounce or force a stretch — pain means stop immediately</div></div>
+<div class="row"><div class="text blue fullrow">Morning is great for activation — evening is better for stretching</div></div>
+<div class="row"><div class="text blue fullrow">Tight hip flexors will fight you — add a 60s kneeling lunge stretch daily</div></div>
+<div class="row"><div class="text blue fullrow">Film yourself monthly so you can actually see your progress</div></div>
+<div class="section green">Week 1 — Activate &amp; Awaken (15 min daily)</div>
+<div class="row"><div class="text green fullrow">Learn the posterior pelvic tilt, wake up glutes and abs</div></div>
+<div class="row"><div class="text green">Supine posterior pelvic tilt — 3 sets / 10 x 5s holds</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green fullrow">  ↳ Flatten your lower back into the floor. Breathe normally throughout.</div></div>
+<div class="row"><div class="text green">Dead bug (bent knee) — 2 sets / 8 each side</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green fullrow">  ↳ Press lower back flat before lowering each leg. Slow and controlled.</div></div>
+<div class="row"><div class="text green">Glute bridge — 3 sets / 10 reps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green fullrow">  ↳ Tuck tailbone at the top. Squeeze glutes fully.</div></div>
+<div class="row"><div class="text green">Seated forward fold (passive) — 3 sets / 30s hold</div><input class="box" type="text" /></div>
+<div class="row"><div class="text green fullrow">  ↳ Legs straight, reach forward without straining. Just breathe into it.</div></div>
+<div class="section cyan">Week 2 — Lengthen the Back Chain (20 min daily)</div>
+<div class="row"><div class="text cyan fullrow">Actively stretch hamstrings with pelvic control</div></div>
+<div class="row"><div class="text cyan">Standing posterior pelvic tilt — 3 sets / 10 x 5s holds</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan fullrow">  ↳ Tuck tailbone under while standing. Abs gently engaged.</div></div>
+<div class="row"><div class="text cyan">Supine hamstring stretch (strap/towel) — 3 sets / 45s each leg</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan fullrow">  ↳ Keep lower back flat. Pull leg toward you gently, no bouncing.</div></div>
+<div class="row"><div class="text cyan">Glute bridge with tilt — 3 sets / 12 reps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan fullrow">  ↳ Posterior tilt at the top of every single rep.</div></div>
+<div class="row"><div class="text cyan">Standing forward fold (soft knees) — 3 sets / 45s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan fullrow">  ↳ Bend knees slightly, hinge from hips, let your head hang heavy.</div></div>
+<div class="section amber">Week 3 — Hip Hinge Mastery (20 min daily)</div>
+<div class="row"><div class="text amber fullrow">Learn to fold from hips, not the lower back</div></div>
+<div class="row"><div class="text amber">Wall hip hinge drill — 3 sets / 10 reps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber fullrow">  ↳ Stand 6in from wall. Push hips back to touch it. Keep back flat.</div></div>
+<div class="row"><div class="text amber">Cat-cow with pelvic focus — 2 sets / 10 slow reps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber fullrow">  ↳ Exaggerate the posterior tilt on the cat phase.</div></div>
+<div class="row"><div class="text amber">Single-leg hamstring stretch — 3 sets / 45s each</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber fullrow">  ↳ One leg extended, other bent. Hinge forward with a flat back.</div></div>
+<div class="row"><div class="text amber">Standing forward fold (straighter legs) — 3 sets / 60s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text amber fullrow">  ↳ Gradually straighten legs week by week. Never force it.</div></div>
+<div class="section orange">Week 4 — Depth &amp; Control (25 min daily)</div>
+<div class="row"><div class="text orange fullrow">Increase fold depth while maintaining pelvic position</div></div>
+<div class="row"><div class="text orange">Active hamstring flexion (lying) — 3 sets / 12 each side</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange fullrow">  ↳ Lift straight leg, hold 2s at top. Keep pelvis neutral throughout.</div></div>
+<div class="row"><div class="text orange">Pyramid pose hold — 3 sets / 60s each side</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange fullrow">  ↳ Front leg straight. Hinge chest toward shin. Breathe into tightness.</div></div>
+<div class="row"><div class="text orange">Seated straddle fold — 3 sets / 60s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange fullrow">  ↳ Legs wide. Walk hands forward from hips. Keep spine long.</div></div>
+<div class="row"><div class="text orange">Standing forward fold — 3 sets / 60-90s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text orange fullrow">  ↳ Feet hip-width. Grab elbows, sway gently. Surrender into the stretch.</div></div>
+<div class="section purple">Week 5 — Progressive Loading (25 min daily)</div>
+<div class="row"><div class="text purple fullrow">Add gentle load and longer holds to deepen flexibility</div></div>
+<div class="row"><div class="text purple">Weighted forward fold (light) — 3 sets / 60s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text purple fullrow">  ↳ Hold a 2-5lb weight or book. Let gravity assist the fold.</div></div>
+<div class="row"><div class="text purple">Posterior tilt + march (standing) — 3 sets / 10 each leg</div><input class="box" type="text" /></div>
+<div class="row"><div class="text purple fullrow">  ↳ Maintain pelvic tilt while slowly lifting knees alternately.</div></div>
+<div class="row"><div class="text purple">Down dog to forward fold flow — 3 sets / 5 slow reps</div><input class="box" type="text" /></div>
+<div class="row"><div class="text purple fullrow">  ↳ Walk feet to hands, hold fold 10s, walk back to down dog.</div></div>
+<div class="row"><div class="text purple">Rag doll pose — 3 sets / 90s</div><input class="box" type="text" /></div>
+<div class="row"><div class="text purple fullrow">  ↳ Feet hip-width, deep bend, grab elbows overhead. Full surrender.</div></div>
+<div class="section rose">Week 6 — The Full Fold (25 min daily)</div>
+<div class="row"><div class="text rose fullrow">Integrate everything — reach the floor</div></div>
+<div class="row"><div class="text rose">Full warm-up flow — 1 round / 5 min</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose fullrow">  ↳ Cat-cow, glute bridges, hip hinges. Get the body ready to move.</div></div>
+<div class="row"><div class="text rose">Active standing forward fold — 3 sets / 5 pulses + 30s hold</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose fullrow">  ↳ Pulse gently to edge of stretch, then relax and breathe into it.</div></div>
+<div class="row"><div class="text rose">Toe touch progression — 5 sets / 10s each</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose fullrow">  ↳ Each attempt, breathe out and try to go slightly deeper than before.</div></div>
+<div class="row"><div class="text rose">Full forward fold hold — 3 sets / 2 min</div><input class="box" type="text" /></div>
+<div class="row"><div class="text rose fullrow">  ↳ Flat feet, straight legs or close. Fingertips or palms to floor. You have got this.</div></div>
+<div class="section pink">💡 Coach's Notes</div>
+<div class="row"><div class="text pink fullrow">Never bounce or force a stretch — pain means stop immediately</div></div>
+<div class="row"><div class="text pink fullrow">Morning is great for activation — evening is better for stretching</div></div>
+<div class="row"><div class="text pink fullrow">15 min daily beats 2 hours once a week — consistency is everything</div></div>
+<div class="row"><div class="text pink fullrow">Tight hip flexors will fight you — add a 60s kneeling lunge stretch daily</div></div>
+<div class="row"><div class="text pink fullrow">Film yourself monthly so you can actually see your progress</div></div>
+</div>
+</div>
+</div>
+</body>
+</html>
