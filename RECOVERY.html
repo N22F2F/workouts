@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+<title>Recovery</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+@keyframes shimmer{0%{background-position:-400% center}100%{background-position:400% center}}
+@keyframes softPulse{0%,100%{box-shadow:0 4px 20px rgba(255,182,193,0.3),0 0 40px rgba(255,105,180,0.15)}50%{box-shadow:0 4px 30px rgba(255,182,193,0.5),0 0 60px rgba(255,105,180,0.25)}}
+@keyframes heartFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.05)}}
+@keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes titleFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes borderSoft{0%{border-color:rgba(255,182,193,0.5)}50%{border-color:rgba(255,105,180,0.7)}100%{border-color:rgba(255,182,193,0.5)}}
+
+:root{
+  --bg:#1a0d12;
+  --bg2:#221018;
+  --bg3:#2a1520;
+  --hot:#ff69b4;
+  --pink:#ffb6c1;
+  --blush:#ffe4e8;
+  --rose:#ff1493;
+  --gold:#f0c8a0;
+  --cream:#fff8f0;
+  --ink:#fff0f4;
+  --ink2:#ffd8e4;
+  --ink3:#d4a0b8;
+  --border:rgba(255,182,193,0.25);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+
+body{
+  font-family:'Nunito',-apple-system,sans-serif;
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 0% 0%,rgba(255,105,180,0.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 100% 100%,rgba(255,182,193,0.08) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(255,20,147,0.04) 0%,transparent 70%);
+  color:var(--ink);
+  padding:10px;
+  -webkit-text-size-adjust:100%;
+  min-height:100vh;
+}
+
+/* TITLE */
+.title{
+  padding:14px 16px;
+  font-weight:900;
+  font-size:20px;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493,#ffb6c1,#f0c8a0,#ffb6c1,#ff69b4);
+  background-size:300%;
+  animation:titleFlow 5s ease infinite;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  border-bottom:2px solid rgba(255,182,193,0.3);
+  white-space:nowrap;
+  position:relative;
+  letter-spacing:0.3px;
+}
+.title::after{
+  content:'🩷 ✨ 🩷';
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:13px;-webkit-text-fill-color:initial;
+  animation:heartFloat 2s ease-in-out infinite;
+}
+
+/* CARDS */
+.card,.day-panel{
+  background:linear-gradient(145deg,rgba(255,182,193,0.08),rgba(34,16,24,0.97),rgba(255,105,180,0.05));
+  border-radius:20px;
+  margin:10px 0;
+  border:1px solid rgba(255,182,193,0.25);
+  animation:softPulse 4s ease-in-out infinite, borderSoft 6s ease-in-out infinite;
+  overflow:hidden;position:relative;
+  box-shadow:0 8px 32px rgba(255,20,147,0.12),0 2px 8px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.card::before,.day-panel::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(145deg,rgba(255,182,193,0.06) 0%,transparent 35%,rgba(255,105,180,0.03) 100%);
+  pointer-events:none;
+}
+.card::after,.day-panel::after{
+  content:'🩷';position:absolute;top:10px;right:12px;
+  font-size:12px;animation:twinkle 3s ease-in-out infinite;pointer-events:none;
+}
+.outer,.wrap{width:100%;padding-bottom:40px}
+
+/* SECTIONS */
+.section{
+  grid-column:1/-1;font-weight:800;font-size:12px;
+  padding:8px 14px;border-radius:12px;margin:10px 0 4px;
+  letter-spacing:1.2px;text-transform:uppercase;
+  position:relative;font-family:'Nunito',sans-serif;
+}
+
+.red    {background:linear-gradient(135deg,rgba(255,100,150,0.2),rgba(255,100,150,0.06));color:#ffb6c1;border-left:3px solid rgba(255,100,150,0.6)}
+.blue   {background:linear-gradient(135deg,rgba(180,140,255,0.2),rgba(180,140,255,0.06));color:#d4b0ff;border-left:3px solid rgba(180,140,255,0.5)}
+.green  {background:linear-gradient(135deg,rgba(150,230,180,0.15),rgba(150,230,180,0.05));color:#b0f0c8;border-left:3px solid rgba(150,230,180,0.4)}
+.orange {background:linear-gradient(135deg,rgba(255,200,100,0.2),rgba(255,200,100,0.06));color:#ffd8a0;border-left:3px solid rgba(255,200,100,0.5)}
+.amber  {background:linear-gradient(135deg,rgba(240,200,160,0.2),rgba(240,200,160,0.06));color:var(--gold);border-left:3px solid rgba(240,200,160,0.5)}
+.pink   {background:linear-gradient(135deg,rgba(255,182,193,0.25),rgba(255,105,180,0.08));color:#ffd0dd;border-left:3px solid rgba(255,182,193,0.7)}
+.cyan   {background:linear-gradient(135deg,rgba(140,220,255,0.15),rgba(140,220,255,0.05));color:#b0e8ff;border-left:3px solid rgba(140,220,255,0.4)}
+.purple {background:linear-gradient(135deg,rgba(210,160,255,0.2),rgba(210,160,255,0.06));color:#e8c8ff;border-left:3px solid rgba(210,160,255,0.5)}
+.rose   {background:linear-gradient(135deg,rgba(255,105,180,0.25),rgba(255,20,147,0.08));color:#ffccd8;border-left:3px solid rgba(255,105,180,0.7)}
+
+/* TEXT */
+.text{
+  font-size:14px;line-height:1.7;padding:5px 10px;
+  border-radius:8px;color:var(--ink2);
+  word-break:break-word;white-space:nowrap;
+  font-family:'Nunito',sans-serif;
+}
+
+
+/* INPUT BOXES */
+.box{
+  height:34px;
+  border:1px solid rgba(255,182,193,0.45);
+  border-radius:14px;
+  background:rgba(255,182,193,0.06);
+  color:#ffccd8;
+  font-size:13px;font-weight:700;
+  padding:0 10px;
+  font-family:'Nunito',sans-serif;
+  -webkit-appearance:none;appearance:none;outline:none;
+  transition:all 0.3s;
+  box-shadow:0 0 8px rgba(255,182,193,0.1),inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.box:focus{
+  border-color:var(--hot);
+  box-shadow:0 0 0 3px rgba(255,105,180,0.2),0 0 16px rgba(255,105,180,0.4);
+  background:rgba(255,105,180,0.08);color:#fff;
+}
+
+/* BACK BUTTON */
+.backbtn{
+  display:inline-block;text-decoration:none;
+  background:linear-gradient(135deg,#ff1493,#ff69b4,#ffb6c1,#ff69b4,#ff1493);
+  background-size:300%;animation:shimmer 3s linear infinite;
+  color:#fff;font-weight:800;font-size:14px;
+  font-family:'Nunito',sans-serif;
+  padding:10px 22px;border-radius:16px;margin:8px 0;
+  box-shadow:0 0 20px rgba(255,105,180,0.5),0 4px 15px rgba(0,0,0,0.3);
+  letter-spacing:0.3px;
+}
+
+/* HOWTO POPUPS */
+.howto-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.extap{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:var(--ink2)}
+.extap:hover{color:var(--hot)}
+.howto{
+  display:none;grid-column:1/-1;
+  border:1px solid rgba(255,182,193,0.3);border-radius:16px;
+  margin:4px 0 12px;
+  background:linear-gradient(135deg,rgba(255,105,180,0.07),rgba(255,182,193,0.04));
+  padding:14px 16px;
+  animation:softPulse 4s ease-in-out infinite;
+}
+.howto .text{white-space:normal;color:var(--ink3);font-size:13px;line-height:1.8}
+.howto .section{margin-top:6px;font-size:11px}
+.howto .backbtn{font-size:12px;padding:6px 14px;margin:10px 0 0}
+
+/* ACCORDIONS */
+details{
+  background:linear-gradient(145deg,rgba(255,182,193,0.06),var(--bg2));
+  border-radius:18px;margin:8px 0;
+  border:1px solid rgba(255,182,193,0.2);overflow:hidden;
+  animation:softPulse 4s ease-in-out infinite;
+  box-shadow:0 4px 20px rgba(255,20,147,0.08);
+}
+details summary{
+  display:flex;align-items:center;justify-content:space-between;
+  font-weight:800;font-size:15px;padding:14px 16px;
+  cursor:pointer;list-style:none;-webkit-appearance:none;
+  user-select:none;-webkit-user-select:none;
+  background:linear-gradient(135deg,rgba(255,105,180,0.12),rgba(255,182,193,0.08),rgba(240,200,160,0.05));
+  background-size:300%;animation:shimmer 6s linear infinite;
+  color:var(--pink);letter-spacing:0.2px;
+  font-family:'Nunito',sans-serif;
+}
+details summary::-webkit-details-marker{display:none}
+details summary .arrow{
+  font-size:22px;opacity:0.9;flex-shrink:0;margin-left:8px;
+  transition:transform 0.3s;color:var(--hot);
+  animation:heartFloat 2s ease-in-out infinite;
+}
+details[open] summary .arrow{transform:rotate(90deg)}
+details .ac-body{border-top:1px solid rgba(255,182,193,0.15)}
+details .ac-body .content{display:grid;grid-template-columns:1fr 110px;gap:3px 6px;padding:12px 16px 18px;align-items:center;width:100%}
+details.howto>summary{padding:10px 14px;font-size:14px}
+details.howto>summary::before{content:"🩷 "}
+details.howto[open]>summary::before{content:"🩷 "}
+details.howto>summary::-webkit-details-marker{display:none}
+
+a.exlink{color:var(--gold);text-underline-offset:2px}
+a.exlink::after{content:" 🩷";font-size:11px;opacity:0.8;text-decoration:none}
+
+.panels{padding:0 6px}
+.row{display:contents}
+.row.cyan,.row.green,.row.blue{display:contents}
+
+.fullrow{grid-column:1/-1}
+html{scroll-behavior:smooth}
+[id^="instr-"],[id^="ex-"]{scroll-margin-top:10px}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:rgba(255,182,193,0.05)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ff69b4,#ffb6c1);border-radius:3px}
+
+.content{ display:grid; grid-template-columns:max-content repeat(4, 65px); gap:3px 6px; padding:6px; align-items:center; width:max-content; min-width:100%; }
+#t-p8:checked ~ .howto-p8,#t-p9:checked ~ .howto-p9,#t-p10:checked ~ .howto-p10{display:block}
+.appendix-hidden{display:none}
+
+
+details.cptf-details{
+  grid-column:1/-1;margin:4px 0 6px;
+  border:1px solid rgba(100,220,255,0.2);border-radius:12px;
+  background:rgba(100,220,255,0.03);
+}
+details.cptf-details > summary.cptf-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;cursor:pointer;list-style:none;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  color:var(--cyan,#7ee8fa);letter-spacing:0.2px;
+  -webkit-appearance:none;
+}
+details.cptf-details > summary::-webkit-details-marker{display:none}
+.cptf-arrow{font-size:11px;opacity:0.7;transition:transform 0.25s;flex-shrink:0}
+details.cptf-details[open] .cptf-arrow{transform:rotate(90deg)}
+details.cptf-details > .cptf-body{padding:2px 0 6px}
+.subhead{grid-column:1/-1;font-size:13px;font-weight:800;color:var(--ink2);padding:8px 10px 2px;font-family:'Nunito',sans-serif;}
+</style>
+
+<style id="timer-styles">
+.wt-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:9999;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;padding:8px 14px;background:rgba(20,8,16,0.97);border-bottom:1px solid rgba(255,105,180,0.3);box-sizing:border-box;width:100%}
+.wt-title-text{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-clock{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;line-height:1.15;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-clock-main{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;font-variant-numeric:tabular-nums;color:#ff69b4;-webkit-text-fill-color:#ff69b4;white-space:nowrap}
+.wt-clock-sub{font-size:9px;font-weight:700;font-family:'Nunito',sans-serif;color:#d4a0b8;-webkit-text-fill-color:#d4a0b8}
+.wt-btn{-webkit-appearance:none;appearance:none;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;padding:6px 10px;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-flex-shrink:0;flex-shrink:0;display:inline-block}
+.wt-btn-start{background:#ff1493;color:#fff;-webkit-text-fill-color:#fff}
+.wt-btn-pause{background:rgba(255,182,193,0.2);color:#ffb6c1;-webkit-text-fill-color:#ffb6c1;border:1px solid rgba(255,182,193,0.4)}
+.wt-btn-reset{background:rgba(255,182,193,0.1);color:#d4a0b8;-webkit-text-fill-color:#d4a0b8;border:1px solid rgba(255,182,193,0.2)}
+.sec-badge{display:inline;margin-left:6px;font-size:10px;font-weight:800;opacity:0.8;white-space:nowrap}
+.sec-badge-cd{font-size:11px;font-weight:900;font-variant-numeric:tabular-nums}
+@-webkit-keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
+.sec-badge-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
+</style>
+</head>
+<body>
+<canvas id="hearts-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.75"></canvas>
+<script>
+(function(){
+  var c=document.getElementById('hearts-canvas');
+  var ctx=c.getContext('2d');
+  var hearts=[];
+  var starbursts=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  var pinkColors=['#ff69b4','#ff1493','#ffb6c1','#ff85c2','#ff3399','#ffccd8'];
+  var sparkleColors=['#ffffff','#fff0f5','#ffe0ee','#ffccdd','#f0c0d0','#ffd0e8'];
+
+  // Floating hearts
+  for(var i=0;i<30;i++){
+    hearts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight+window.innerHeight,
+      size:Math.random()*28+12,
+      speed:Math.random()*0.5+0.2,
+      drift:Math.random()*0.4-0.2,
+      opacity:Math.random()*0.65+0.35,
+      color:pinkColors[Math.floor(Math.random()*pinkColors.length)],
+      wobble:Math.random()*Math.PI*2,
+      wobbleSpeed:Math.random()*0.02+0.01
+    });
+  }
+
+  // Star burst sparkles — the sharp cross-ray ones like in the image
+  for(var j=0;j<40;j++){
+    starbursts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      size:Math.random()*10+3,
+      phase:Math.random()*Math.PI*2,
+      speed:Math.random()*0.025+0.008,
+      color:sparkleColors[Math.floor(Math.random()*sparkleColors.length)],
+      rotation:Math.random()*Math.PI/4,  // slight rotation variety
+      gold:Math.random()<0.3  // 30% gold sparkles
+    });
+  }
+
+  function drawHeart(ctx,x,y,s,color,alpha){
+    ctx.save();
+    ctx.globalAlpha=alpha;ctx.fillStyle=color;
+    ctx.shadowColor=color;ctx.shadowBlur=s*1.2;
+    ctx.beginPath();
+    ctx.moveTo(x,y+s*0.3);
+    ctx.bezierCurveTo(x,y,x-s*0.55,y,x-s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x-s*0.55,y+s*0.6,x,y+s*0.9,x,y+s*1.05);
+    ctx.bezierCurveTo(x,y+s*0.9,x+s*0.55,y+s*0.6,x+s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x+s*0.55,y,x,y,x,y+s*0.3);
+    ctx.fill();ctx.restore();
+  }
+
+  function drawStarburst(ctx, sb){
+    // The sharp 4-point star with long thin rays — like camera lens flare / glitter
+    var brightness = Math.abs(Math.sin(sb.phase));
+    var alpha = brightness * 0.45 + 0.03;
+    var s = sb.size * (0.3 + 0.7 * brightness);
+    var color = sb.gold ? ('#f0c060') : sb.color;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(sb.x, sb.y);
+    ctx.rotate(sb.rotation);
+
+    // Glow halo behind
+    var grad = ctx.createRadialGradient(0,0,0, 0,0,s*3);
+    grad.addColorStop(0, sb.gold ? 'rgba(240,192,96,0.6)' : 'rgba(255,255,255,0.5)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(0,0,s*3,0,Math.PI*2);
+    ctx.fill();
+
+    // Main cross rays — long thin diamond shape
+    ctx.shadowColor = color;
+    ctx.shadowBlur = s * 2;
+    ctx.fillStyle = color;
+
+    // Long vertical ray
+    ctx.beginPath();
+    ctx.moveTo(0, -s*5);
+    ctx.lineTo(s*0.15, -s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, -s*0.5);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, s*5);
+    ctx.lineTo(s*0.15, s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, s*0.5);
+    ctx.closePath();ctx.fill();
+
+    // Long horizontal ray
+    ctx.beginPath();
+    ctx.moveTo(-s*5, 0);
+    ctx.lineTo(-s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*5, 0);
+    ctx.lineTo(s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    // Diagonal shorter rays
+    ctx.globalAlpha = alpha * 0.5;
+    ctx.beginPath();
+    ctx.moveTo(-s*3, -s*3);
+    ctx.lineTo(-s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, -s*3);
+    ctx.lineTo(s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(-s*3, s*3);
+    ctx.lineTo(-s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, s*3);
+    ctx.lineTo(s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    // Bright centre dot
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(0,0,s*0.4,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.restore();ctx.globalAlpha=1;
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+
+    // Hearts
+    hearts.forEach(function(h){
+      h.y-=h.speed;h.wobble+=h.wobbleSpeed;
+      h.x+=Math.sin(h.wobble)*0.4+h.drift;
+      if(h.y<-80){h.y=c.height+60;h.x=Math.random()*c.width;}
+      drawHeart(ctx,h.x,h.y,h.size,h.color,h.opacity);
+    });
+
+    // Starbursts — twinkling in place
+    starbursts.forEach(function(sb){
+      sb.phase+=sb.speed;
+      drawStarburst(ctx, sb);
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+
+
+
+<div class="wt-sticky"><span class="wt-title-text">Recovery</span><div class="wt-clock"><span class="wt-clock-main" id="wt-main">01:50:00</span><span class="wt-clock-sub" id="wt-sub">~110 min total</span></div><button class="wt-btn wt-btn-start" id="wt-start" onclick="wtStart();return false;">&#9654; Start</button><button class="wt-btn wt-btn-pause" id="wt-pause" onclick="wtPause();return false;" style="display:none">&#9646;&#9646; Pause</button><button class="wt-btn wt-btn-reset" id="wt-reset" onclick="wtReset();return false;">&#8635;</button></div>
+<div class="outer">
+<div class="panels">
+<div class="day-panel">
+
+<div class="title">Recovery</div>
+<div class="content"><div class="section red">🔴 Focus</div>
+<div class="row"><div class="text red fullrow">Support fat loss without hurting recovery</div></div>
+<div class="row"><div class="text red fullrow">Lift first, then cardio/core</div></div>
+<div class="row"><div class="text red fullrow">Keep this day easy enough to recover</div></div>
+<div class="section blue">🔵 Warm-up <span class="sec-badge">~10m <span class="sec-badge-cd" id="wcd-warmup">10:00</span></span></div>
+<div class="row"><div class="text blue">10 min treadmill 3 degrees 5 kph</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">5 min / 1000 m row</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Easy walk or march 3–5 min</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Glute bridge x 15</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Cat-cow x 8</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Bodyweight side bend x 8/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="section green">🟢 Gym <span class="sec-badge">~20m <span class="sec-badge-cd" id="wcd-gym">20:00</span></span></div>
+<div class="row"><div class="text green">Banded glute bridge — 3 x 20–25</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Banded abduction — 3 x 25–30</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Side plank — 3 x 30–45 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Dead bug — 3 x 10–12/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text green">Reverse crunch — 3 x 12–15</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="section amber">🧡 Cardio <span class="sec-badge">~60m <span class="sec-badge-cd" id="wcd-cardio">01:00:00</span></span></div>
+<div class="row"><div class="text amber">60 min 3 degrees 5 kph</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="section blue">💙 Cardio Health</div>
+<div class="row"><div class="text blue">Keep effort easy and sustainable</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">Choose steady walking over hard intervals if recovery is poor</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text blue">This should support leanness without draining the lower-body days</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="section pink">🩷 Core / Waist <span class="sec-badge">~10m <span class="sec-badge-cd" id="wcd-core">10:00</span></span></div>
+<input type="checkbox" id="t-p8" class="howto-toggle">
+<div class="row"><label for="t-p8" class="text pink extap">RKC plank — 2–3 x 15–25 sec</label><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="howto howto-p8">
+<div class="row"><div class="text fullrow"><label for="t-p8" class="backbtn">↩ Back to routine</label></div></div>
+<div class="section red">🔴 P8: RKC Plank — What is it?</div>
+<div class="row"><div class="text red fullrow">A hardstyle plank variation</div></div>
+<div class="row"><div class="text red fullrow">Looks like a normal forearm plank</div></div>
+<div class="row"><div class="text red fullrow">Instead of just holding, you create full-body tension</div></div>
+<div class="section blue">🔵 P8: How to do it</div>
+<div class="row"><div class="text blue fullrow">Set up on forearms, elbows under shoulders</div></div>
+<div class="row"><div class="text blue fullrow">Legs straight, feet about hip-width or a bit narrower</div></div>
+<div class="row"><div class="text blue fullrow">Tuck pelvis slightly so ribs stay down</div></div>
+<div class="row"><div class="text blue fullrow">Squeeze glutes hard</div></div>
+<div class="row"><div class="text blue fullrow">Squeeze quads</div></div>
+<div class="row"><div class="text blue fullrow">Pull elbows toward toes without actually moving</div></div>
+<div class="row"><div class="text blue fullrow">Pull toes toward elbows without actually moving</div></div>
+<div class="row"><div class="text blue fullrow">Brace abs as if someone is about to punch you</div></div>
+<div class="section green">🟢 P8: What you should feel</div>
+<div class="row"><div class="text green fullrow">Deep abdominal tension</div></div>
+<div class="row"><div class="text green fullrow">Glutes and quads working</div></div>
+<div class="row"><div class="text green fullrow">Sometimes lats too</div></div>
+<div class="row"><div class="text green fullrow">Much more intense than a regular plank</div></div>
+<div class="section amber">🧡 P8: How long</div>
+<div class="row"><div class="text amber fullrow">Usually short holds: 10–30 seconds</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than holding forever</div></div>
+<div class="section purple">💜 P8: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Builds waist control and trunk stiffness</div></div>
+<div class="row"><div class="text purple fullrow">Core bracing without side-bending or heavy oblique loading</div></div>
+<div class="section orange">🟠 P8: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Lower back sagging</div></div>
+<div class="row"><div class="text orange fullrow">Hips too high</div></div>
+<div class="row"><div class="text orange fullrow">Just hanging out instead of creating tension</div></div>
+<div class="row"><div class="text orange fullrow">Holding too long and losing position</div></div>
+<div class="section pink">🩷 P8: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Squeeze everything and drag elbows to toes</div></div>
+<div class="row"><div class="text fullrow"><label for="t-p8" class="backbtn">↩ Back to routine</label></div></div>
+</div>
+<input type="checkbox" id="t-p9" class="howto-toggle">
+<div class="row"><label for="t-p9" class="text pink extap">90/90 breathing — 2 rounds of 3–5 breaths</label><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="howto howto-p9">
+<div class="row"><div class="text fullrow"><label for="t-p9" class="backbtn">↩ Back to routine</label></div></div>
+<div class="section red">🔴 P9: 90/90 Breathing — What is it?</div>
+<div class="row"><div class="text red fullrow">A breathing drill to get ribs stacked over pelvis</div></div>
+<div class="row"><div class="text red fullrow">Switches down from a flared-rib posture</div></div>
+<div class="row"><div class="text red fullrow">Hips at ~90 degrees, knees at ~90 degrees</div></div>
+<div class="row"><div class="text red fullrow">Usually done lying on back, feet on bench, wall or chair</div></div>
+<div class="section blue">🔵 P9: How to do it</div>
+<div class="row"><div class="text blue fullrow">Lie on your back</div></div>
+<div class="row"><div class="text blue fullrow">Feet flat on wall/bench/chair, hips and knees both around 90°</div></div>
+<div class="row"><div class="text blue fullrow">Lightly tuck pelvis so lower back is gently heavy on floor</div></div>
+<div class="row"><div class="text blue fullrow">Keep ribs down, not flared up</div></div>
+<div class="row"><div class="text blue fullrow">Inhale quietly through your nose</div></div>
+<div class="row"><div class="text blue fullrow">Exhale fully through mouth like fogging a mirror</div></div>
+<div class="row"><div class="text blue fullrow">At end of exhale, feel abs turn on without crunching</div></div>
+<div class="row"><div class="text blue fullrow">Pause briefly</div></div>
+<div class="row"><div class="text blue fullrow">Inhale again without losing rib/pelvis position</div></div>
+<div class="row"><div class="text blue fullrow">Cue: gently pull heels down wall without moving them</div></div>
+<div class="section green">🟢 P9: What you should feel</div>
+<div class="row"><div class="text green fullrow">Lower ribs coming down on the exhale</div></div>
+<div class="row"><div class="text green fullrow">Abs turning on</div></div>
+<div class="row"><div class="text green fullrow">Less arch in the low back</div></div>
+<div class="row"><div class="text green fullrow">Sometimes hamstrings lightly if using the wall correctly</div></div>
+<div class="section amber">🧡 P9: How much</div>
+<div class="row"><div class="text amber fullrow">Usually 2 rounds of 3–5 breaths</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than rushing</div></div>
+<div class="section purple">💜 P9: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Improves waist control</div></div>
+<div class="row"><div class="text purple fullrow">Helps core positioning for lifts</div></div>
+<div class="row"><div class="text purple fullrow">Can reduce over-arching through the lower back</div></div>
+<div class="row"><div class="text purple fullrow">Pairs well with vacuum holds, planks, and glute training</div></div>
+<div class="section orange">🟠 P9: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Inhaling into the chest only</div></div>
+<div class="row"><div class="text orange fullrow">Arching the lower back</div></div>
+<div class="row"><div class="text orange fullrow">Forcing a huge pelvic tuck</div></div>
+<div class="row"><div class="text orange fullrow">Pushing with quads instead of lightly using hamstrings</div></div>
+<div class="row"><div class="text orange fullrow">Rushing the breaths</div></div>
+<div class="section pink">🩷 P9: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Exhale fully, ribs down, heels lightly pull down the wall</div></div>
+<div class="row"><div class="text fullrow"><label for="t-p9" class="backbtn">↩ Back to routine</label></div></div>
+</div>
+<div class="row"><div class="text pink">Pallof press — 2–3 x 10–12/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<input type="checkbox" id="t-p10" class="howto-toggle">
+<div class="row"><label for="t-p10" class="text pink extap">Vacuum holds — 3–5 x 15–30 sec</label><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="howto howto-p10">
+<div class="row"><div class="text fullrow"><label for="t-p10" class="backbtn">↩ Back to routine</label></div></div>
+<div class="section red">🔴 P10: Vacuum Holds — What are they?</div>
+<div class="row"><div class="text red fullrow">A core drill where you gently draw your abdomen inward</div></div>
+<div class="row"><div class="text red fullrow">Hold that position while breathing under control</div></div>
+<div class="row"><div class="text red fullrow">Trains the transverse abdominis — acts like an internal corset</div></div>
+<div class="section blue">🔵 P10: How to do them</div>
+<div class="row"><div class="text blue fullrow">Stand tall, kneel, or lie on your back</div></div>
+<div class="row"><div class="text blue fullrow">Exhale fully</div></div>
+<div class="row"><div class="text blue fullrow">After the exhale, gently pull belly button inward and slightly up</div></div>
+<div class="row"><div class="text blue fullrow">Think zip the waist in, not crunch down</div></div>
+<div class="row"><div class="text blue fullrow">Keep ribs stacked over pelvis</div></div>
+<div class="row"><div class="text blue fullrow">Hold the tension without shrugging or folding over</div></div>
+<div class="row"><div class="text blue fullrow">Breathe lightly if you can, or use short holds after the exhale</div></div>
+<div class="row"><div class="text blue fullrow">This is a drawing-in drill, not bracing as hard as possible</div></div>
+<div class="section green">🟢 P10: What you should feel</div>
+<div class="row"><div class="text green fullrow">Deep tension around the waist</div></div>
+<div class="row"><div class="text green fullrow">A drawing-in feeling through the lower abdomen</div></div>
+<div class="row"><div class="text green fullrow">Not a hard crunch or braced-out stomach</div></div>
+<div class="section amber">🧡 P10: How much</div>
+<div class="row"><div class="text amber fullrow">Start with 3–5 sets of 15–30 seconds</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than forcing longer holds</div></div>
+<div class="section purple">💜 P10: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Helps with waist control</div></div>
+<div class="row"><div class="text purple fullrow">Improves awareness of ribcage / pelvis position</div></div>
+<div class="row"><div class="text purple fullrow">Pairs well with breathing drills, planks, and glute work</div></div>
+<div class="row"><div class="text purple fullrow">Supports the appearance of a tighter midsection</div></div>
+<div class="section orange">🟠 P10: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Sucking in from the chest only</div></div>
+<div class="row"><div class="text orange fullrow">Holding your breath too aggressively</div></div>
+<div class="row"><div class="text orange fullrow">Rounding forward</div></div>
+<div class="row"><div class="text orange fullrow">Gripping hip flexors or glutes too hard</div></div>
+<div class="row"><div class="text orange fullrow">Confusing it with bracing as hard as possible</div></div>
+<div class="section pink">🩷 P10: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Exhale, ribs down, draw the lower waist inward</div></div>
+<div class="row"><div class="text fullrow"><label for="t-p10" class="backbtn">↩ Back to routine</label></div></div>
+</div>
+<div class="section cyan">🩵 Cool-down / mobility <span class="sec-badge">~10m <span class="sec-badge-cd" id="wcd-cooldown">10:00</span></span></div>
+<div class="row"><div class="text cyan">Standing forward fold or seated fold 60 sec</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Frog stretch 60 sec</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Wide straddle fold 60 sec</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Kneeling hip flexor stretch 45–60 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Across chest shoulder stretch</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Back chest stretch</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Bent-arm chest stretch</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Supine hamstring stretch with strap</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Optional only if energy is good: half split 45 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Front split hold with props 30 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Calf stretch — 2–3 x 30–45 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Hamstring strap stretch — 2–3 x 30–60 sec/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Seated forward fold — 2–3 x 30–60 sec</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Standing soft-knee forward fold — 2–3 x 30–60 sec</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Contract-relax fold — 3–4 rounds (contract 5–6 sec, sink 20–30 sec)</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Nerve floss optional — 1–2 x 8–10 glides/side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan fullrow">🟢 Gym Posture Drills — Daily</div></div>
+<div class="row green"><div class="text green">Wall angel x 10 — back flat to wall, arms slide up</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Chin tuck x 10 — gentle, hold 3 sec each</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Doorway chest stretch — 30 sec each side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Hip flexor kneeling stretch — 45 sec each side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Glute squeeze standing — 3 x 10 sec holds</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Scapular retraction x 15 — pinch shoulder blades</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row green"><div class="text green">Dead hang — 20–30 sec if available</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="section cyan">🩵 Forward Fold</div>
+
+<div class="subhead">Overview</div>
+<div class="row"><div class="text cyan">10 minutes • Daily • 5 Steps</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">1. Wall Hinge Drill</div>
+<div class="row"><div class="text cyan">2 x 10 reps • Slow • Controlled</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">↳ Hips back</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Chest down</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Flat back</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">2. Tempo RDL (40kg)</div>
+<div class="row"><div class="text cyan">3 x 8 reps • 3 sec down + up</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Keep hips back</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Feel hamstrings</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">3. Mid-Shin Hold</div>
+<div class="row"><div class="text cyan">3 x 30 sec • Relax • Breathe</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Pull chest toward thighs</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">4. Forward Fold Ladder</div>
+<div class="row"><div class="text cyan">5 rounds • 20 sec each level</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 1 — Knees</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 2 — Mid-shin</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 3 — Ankles</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 4 — Fingertips floor</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 5 — Palms flat</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row cyan"><div class="text cyan">Level 6 — Chest</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">5. Deep Fold Hold</div>
+<div class="row"><div class="text cyan">1 x 60 sec • No pain • Breathe</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Relax • Expand • Stay longer</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">Progress Milestones</div>
+<div class="row"><div class="text cyan">1 — Hands to knees</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">2 — Mid-shin</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">3 — Ankles</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">4 — Fingertips floor</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">5 — Palms flat</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">6 — Chest to thighs</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="subhead">Key Cues</div>
+<div class="row"><div class="text cyan">Hips back</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Spine long</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Knees soft</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Breathe deep</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<details class="cptf-details">
+<summary class="cptf-summary">Common Problems to Fix <span class="cptf-arrow">▶</span></summary>
+<div class="cptf-body">
+<div class="row"><div class="text cyan">Forward head posture — stretch neck flexors, strengthen deep neck</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Rounded shoulders — face pulls, band pull-aparts daily</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Anterior pelvic tilt — glute activation, hip flexor stretching</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Rib flare — 90/90 breathing already in your plan helps this</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Hyperextended knees — soft knee habit when standing</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Anterior pelvic tilt can flatten glutes visually</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">10 mins daily posture work = visible difference within weeks</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Ears over shoulders over hips — check in a mirror daily</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Chin tucked slightly — not forward</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Shoulders back and down — not shrugged</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Ribcage stacked over pelvis — not flared</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Slight posterior tilt when standing — glutes lightly on</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Feet hip-width, weight even — not rocking to one side</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">At desk: screen at eye level, elbows at 90 degrees</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+<div class="row"><div class="text cyan">Phone: raise it to eye level — stop looking down</div><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /><input class="box" type="text" /></div>
+</div>
+</details>
+<div class="appendix-hidden">
+<div class="section red">🔴 P8: RKC Plank — What is it?</div>
+<div class="row"><div class="text red fullrow">A hardstyle plank variation</div></div>
+<div class="row"><div class="text red fullrow">Looks like a normal forearm plank</div></div>
+<div class="row"><div class="text red fullrow">Instead of just holding, you create full-body tension</div></div>
+<div class="section blue">🔵 P8: How to do it</div>
+<div class="row"><div class="text blue fullrow">Set up on forearms, elbows under shoulders</div></div>
+<div class="row"><div class="text blue fullrow">Legs straight, feet about hip-width or a bit narrower</div></div>
+<div class="row"><div class="text blue fullrow">Tuck pelvis slightly so ribs stay down</div></div>
+<div class="row"><div class="text blue fullrow">Squeeze glutes hard</div></div>
+<div class="row"><div class="text blue fullrow">Squeeze quads</div></div>
+<div class="row"><div class="text blue fullrow">Pull elbows toward toes without actually moving</div></div>
+<div class="row"><div class="text blue fullrow">Pull toes toward elbows without actually moving</div></div>
+<div class="row"><div class="text blue fullrow">Brace abs as if someone is about to punch you</div></div>
+<div class="section green">🟢 P8: What you should feel</div>
+<div class="row"><div class="text green fullrow">Deep abdominal tension</div></div>
+<div class="row"><div class="text green fullrow">Glutes and quads working</div></div>
+<div class="row"><div class="text green fullrow">Sometimes lats too</div></div>
+<div class="row"><div class="text green fullrow">Much more intense than a regular plank</div></div>
+<div class="section amber">🧡 P8: How long</div>
+<div class="row"><div class="text amber fullrow">Usually short holds: 10–30 seconds</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than holding forever</div></div>
+<div class="section purple">💜 P8: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Builds waist control and trunk stiffness</div></div>
+<div class="row"><div class="text purple fullrow">Core bracing without side-bending or heavy oblique loading</div></div>
+<div class="section orange">🟠 P8: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Lower back sagging</div></div>
+<div class="row"><div class="text orange fullrow">Hips too high</div></div>
+<div class="row"><div class="text orange fullrow">Just hanging out instead of creating tension</div></div>
+<div class="row"><div class="text orange fullrow">Holding too long and losing position</div></div>
+<div class="section pink">🩷 P8: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Squeeze everything and drag elbows to toes</div></div>
+<div class="section red">🔴 P9: 90/90 Breathing — What is it?</div>
+<div class="row"><div class="text red fullrow">A breathing drill to get ribs stacked over pelvis</div></div>
+<div class="row"><div class="text red fullrow">Switches down from a flared-rib posture</div></div>
+<div class="row"><div class="text red fullrow">Hips at ~90 degrees, knees at ~90 degrees</div></div>
+<div class="row"><div class="text red fullrow">Usually done lying on back, feet on bench, wall or chair</div></div>
+<div class="section blue">🔵 P9: How to do it</div>
+<div class="row"><div class="text blue fullrow">Lie on your back</div></div>
+<div class="row"><div class="text blue fullrow">Feet flat on wall/bench/chair, hips and knees both around 90°</div></div>
+<div class="row"><div class="text blue fullrow">Lightly tuck pelvis so lower back is gently heavy on floor</div></div>
+<div class="row"><div class="text blue fullrow">Keep ribs down, not flared up</div></div>
+<div class="row"><div class="text blue fullrow">Inhale quietly through your nose</div></div>
+<div class="row"><div class="text blue fullrow">Exhale fully through mouth like fogging a mirror</div></div>
+<div class="row"><div class="text blue fullrow">At end of exhale, feel abs turn on without crunching</div></div>
+<div class="row"><div class="text blue fullrow">Pause briefly</div></div>
+<div class="row"><div class="text blue fullrow">Inhale again without losing rib/pelvis position</div></div>
+<div class="row"><div class="text blue fullrow">Cue: gently pull heels down wall without moving them</div></div>
+<div class="section green">🟢 P9: What you should feel</div>
+<div class="row"><div class="text green fullrow">Lower ribs coming down on the exhale</div></div>
+<div class="row"><div class="text green fullrow">Abs turning on</div></div>
+<div class="row"><div class="text green fullrow">Less arch in the low back</div></div>
+<div class="row"><div class="text green fullrow">Sometimes hamstrings lightly if using the wall correctly</div></div>
+<div class="section amber">🧡 P9: How much</div>
+<div class="row"><div class="text amber fullrow">Usually 2 rounds of 3–5 breaths</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than rushing</div></div>
+<div class="section purple">💜 P9: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Improves waist control</div></div>
+<div class="row"><div class="text purple fullrow">Helps core positioning for lifts</div></div>
+<div class="row"><div class="text purple fullrow">Can reduce over-arching through the lower back</div></div>
+<div class="row"><div class="text purple fullrow">Pairs well with vacuum holds, planks, and glute training</div></div>
+<div class="section orange">🟠 P9: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Inhaling into the chest only</div></div>
+<div class="row"><div class="text orange fullrow">Arching the lower back</div></div>
+<div class="row"><div class="text orange fullrow">Forcing a huge pelvic tuck</div></div>
+<div class="row"><div class="text orange fullrow">Pushing with quads instead of lightly using hamstrings</div></div>
+<div class="row"><div class="text orange fullrow">Rushing the breaths</div></div>
+<div class="section pink">🩷 P9: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Exhale fully, ribs down, heels lightly pull down the wall</div></div>
+<div class="section red">🔴 P10: Vacuum Holds — What are they?</div>
+<div class="row"><div class="text red fullrow">A core drill where you gently draw your abdomen inward</div></div>
+<div class="row"><div class="text red fullrow">Hold that position while breathing under control</div></div>
+<div class="row"><div class="text red fullrow">Trains the transverse abdominis — acts like an internal corset</div></div>
+<div class="section blue">🔵 P10: How to do them</div>
+<div class="row"><div class="text blue fullrow">Stand tall, kneel, or lie on your back</div></div>
+<div class="row"><div class="text blue fullrow">Exhale fully</div></div>
+<div class="row"><div class="text blue fullrow">After the exhale, gently pull belly button inward and slightly up</div></div>
+<div class="row"><div class="text blue fullrow">Think zip the waist in, not crunch down</div></div>
+<div class="row"><div class="text blue fullrow">Keep ribs stacked over pelvis</div></div>
+<div class="row"><div class="text blue fullrow">Hold the tension without shrugging or folding over</div></div>
+<div class="row"><div class="text blue fullrow">Breathe lightly if you can, or use short holds after the exhale</div></div>
+<div class="row"><div class="text blue fullrow">This is a drawing-in drill, not bracing as hard as possible</div></div>
+<div class="section green">🟢 P10: What you should feel</div>
+<div class="row"><div class="text green fullrow">Deep tension around the waist</div></div>
+<div class="row"><div class="text green fullrow">A drawing-in feeling through the lower abdomen</div></div>
+<div class="row"><div class="text green fullrow">Not a hard crunch or braced-out stomach</div></div>
+<div class="section amber">🧡 P10: How much</div>
+<div class="row"><div class="text amber fullrow">Start with 3–5 sets of 15–30 seconds</div></div>
+<div class="row"><div class="text amber fullrow">Quality matters more than forcing longer holds</div></div>
+<div class="section purple">💜 P10: Why it is in your plan</div>
+<div class="row"><div class="text purple fullrow">Helps with waist control</div></div>
+<div class="row"><div class="text purple fullrow">Improves awareness of ribcage / pelvis position</div></div>
+<div class="row"><div class="text purple fullrow">Pairs well with breathing drills, planks, and glute work</div></div>
+<div class="row"><div class="text purple fullrow">Supports the appearance of a tighter midsection</div></div>
+<div class="section orange">🟠 P10: Common mistakes</div>
+<div class="row"><div class="text orange fullrow">Sucking in from the chest only</div></div>
+<div class="row"><div class="text orange fullrow">Holding your breath too aggressively</div></div>
+<div class="row"><div class="text orange fullrow">Rounding forward</div></div>
+<div class="row"><div class="text orange fullrow">Gripping hip flexors or glutes too hard</div></div>
+<div class="row"><div class="text orange fullrow">Confusing it with bracing as hard as possible</div></div>
+<div class="section pink">🩷 P10: Quick cue</div>
+<div class="row"><div class="text pink fullrow">Exhale, ribs down, draw the lower waist inward</div></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script id="wt-js">
+(function(){
+  var S=[{"id": "warmup", "mins": 10}, {"id": "gym", "mins": 20}, {"id": "cardio", "mins": 60}, {"id": "core", "mins": 10}, {"id": "cooldown", "mins": 10}];
+  var totalSec=0,totalMins=110;
+  for(var i=0;i<S.length;i++) totalSec+=S[i].mins*60;
+  var acc=0,t0=null,running=false,ivl=null;
+  function pad(n){return n<10?'0'+n:''+n;}
+  function fmt(s){
+    if(s<=0)return'00:00';
+    var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;
+    return h>0?pad(h)+':'+pad(m)+':'+pad(sc):pad(m)+':'+pad(sc);
+  }
+  function g(id){return document.getElementById(id);}
+  function elapsed(){return acc+(running?Date.now()-t0:0);}
+  function tick(){
+    var e=Math.floor(elapsed()/1000),r=Math.max(0,totalSec-e);
+    var em=g('wt-main');if(em)em.textContent=fmt(r);
+    var es=g('wt-sub');if(es)es.textContent=fmt(e)+' elapsed';
+    var cur=0;
+    for(var i=0;i<S.length;i++){
+      var ss=S[i].mins*60,end=cur+ss,el=g('wcd-'+S[i].id);
+      if(el){
+        if(e<cur){el.textContent=fmt(ss);el.className='sec-badge-cd';}
+        else if(e<end){var rem=end-e;el.textContent=fmt(rem);el.className=rem<=60?'sec-badge-cd urgent':'sec-badge-cd';}
+        else{el.textContent='✓';el.className='sec-badge-cd';}
+      }
+      cur+=ss;
+    }
+    if(r<=0){clearInterval(ivl);running=false;_b(false);}
+  }
+  function _b(on){
+    var sb=g('wt-start'),pb=g('wt-pause');
+    if(!sb||!pb)return;
+    sb.style.display=on?'none':'inline-block';
+    pb.style.display=on?'inline-block':'none';
+  }
+  window.wtStart=function(){if(running)return;t0=Date.now();running=true;_b(true);ivl=setInterval(tick,500);tick();};
+  window.wtPause=function(){if(!running)return;acc+=Date.now()-t0;running=false;clearInterval(ivl);var sb=g('wt-start');if(sb)sb.textContent='▶ Resume';_b(false);};
+  window.wtReset=function(){
+    clearInterval(ivl);running=false;acc=0;t0=null;
+    var sb=g('wt-start');if(sb)sb.textContent='▶ Start';
+    _b(false);
+    var em=g('wt-main');if(em)em.textContent=fmt(totalSec);
+    var es=g('wt-sub');if(es)es.textContent='~'+totalMins+' min total';
+    for(var i=0;i<S.length;i++){var el=g('wcd-'+S[i].id);if(el){el.textContent=fmt(S[i].mins*60);el.className='sec-badge-cd';}}
+  };
+})();
+</script>
+</body>
+</html>
