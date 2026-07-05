@@ -15,7 +15,7 @@
 @keyframes borderSoft{0%{border-color:rgba(255,182,193,0.5)}50%{border-color:rgba(255,105,180,0.7)}100%{border-color:rgba(255,182,193,0.5)}}
 
 :root{
-  --bg:#1a0d12;
+  --bg:#000000;
   --bg2:#221018;
   --bg3:#2a1520;
   --hot:#ff69b4;
@@ -35,11 +35,7 @@ html,body{overflow-x:hidden}
 
 body{
   font-family:'Nunito',-apple-system,sans-serif;
-  background:var(--bg);
-  background-image:
-    radial-gradient(ellipse at 0% 0%,rgba(255,105,180,0.12) 0%,transparent 50%),
-    radial-gradient(ellipse at 100% 100%,rgba(255,182,193,0.08) 0%,transparent 50%),
-    radial-gradient(ellipse at 50% 50%,rgba(255,20,147,0.04) 0%,transparent 70%);
+  background:#000000;
   color:var(--ink);
   padding:10px;
   -webkit-text-size-adjust:100%;
@@ -239,7 +235,7 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
 </style>
 
 <style id="timer-styles">
-.wt-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:9999;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;padding:8px 14px;background:rgba(20,8,16,0.97);border-bottom:1px solid rgba(255,105,180,0.3);box-sizing:border-box;width:100%}
+.wt-sticky{position:fixed;top:0;left:0;right:0;z-index:9999;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;padding:8px 14px;background:rgba(20,8,16,0.97);border-bottom:1px solid rgba(255,105,180,0.3);box-sizing:border-box;width:100%}
 .wt-title-text{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
 .wt-clock{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;line-height:1.15;-webkit-flex-shrink:0;flex-shrink:0}
 .wt-clock-main{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;font-variant-numeric:tabular-nums;color:#ff69b4;-webkit-text-fill-color:#ff69b4;white-space:nowrap}
@@ -253,6 +249,12 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
 @-webkit-keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
 @keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
 .sec-badge-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
+.wt-secfloat{position:fixed;left:0;right:0;z-index:9998;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;gap:10px;padding:5px 14px;background:rgba(8,3,6,0.97);border-bottom:1px solid rgba(255,105,180,0.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,0.5);box-sizing:border-box}
+.wt-sf-left{display:-webkit-flex;display:flex;-webkit-align-items:baseline;align-items:baseline;gap:8px;min-width:0}
+.wt-sf-name{font-size:12px;font-weight:900;font-family:'Nunito',sans-serif;letter-spacing:0.6px;text-transform:uppercase;color:#ffd0dd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wt-sf-cd{font-size:14px;font-weight:900;font-family:'Nunito',sans-serif;font-variant-numeric:tabular-nums;color:#ff69b4;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-sf-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
+.wt-sf-next{font-size:9px;font-weight:800;font-family:'Nunito',sans-serif;color:#9a7788;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
 </style>
 </head>
 <body>
@@ -429,6 +431,10 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
 
 
 <div class="wt-sticky"><span class="wt-title-text">Lower C</span><div class="wt-clock"><span class="wt-clock-main" id="wt-main">02:00:00</span><span class="wt-clock-sub" id="wt-sub">~120 min total</span></div><button class="wt-btn wt-btn-start" id="wt-start" onclick="wtStart();return false;">&#9654; Start</button><button class="wt-btn wt-btn-pause" id="wt-pause" onclick="wtPause();return false;" style="display:none">&#9646;&#9646; Pause</button><button class="wt-btn wt-btn-reset" id="wt-reset" onclick="wtReset();return false;">&#8635;</button></div>
+<div class="wt-secfloat" id="wt-secfloat" style="display:none">
+  <div class="wt-sf-left"><span class="wt-sf-name" id="wt-sf-name"></span><span class="wt-sf-cd" id="wt-sf-cd"></span></div>
+  <span class="wt-sf-next" id="wt-sf-next"></span>
+</div>
 <div class="outer">
 <div class="panels">
 <div class="day-panel">
@@ -816,6 +822,56 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
     var es=g('wt-sub');if(es)es.textContent='~'+totalMins+' min total';
     for(var i=0;i<S.length;i++){var el=g('wcd-'+S[i].id);if(el){el.textContent=fmt(S[i].mins*60);el.className='sec-badge-cd';}}
   };
+})();
+</script>
+
+<script id="wt-secfloat-js">
+(function(){
+  var bar=document.querySelector('.wt-sticky');
+  var flo=document.getElementById('wt-secfloat');
+  if(!bar||!flo)return;
+  var nameEl=document.getElementById('wt-sf-name');
+  var cdEl=document.getElementById('wt-sf-cd');
+  var nextEl=document.getElementById('wt-sf-next');
+  var cds=[].slice.call(document.querySelectorAll('.section [id^="wcd-"]'));
+  var secs=cds.map(function(cd){
+    var header=cd.closest('.section');
+    var clone=header.cloneNode(true);
+    var b=clone.querySelector('.sec-badge'); if(b)b.parentNode.removeChild(b);
+    return {header:header, cd:cd, name:clone.textContent.trim()};
+  });
+  if(!secs.length)return;
+  function barH(){return bar.getBoundingClientRect().height;}
+  function pad(){
+    var h=barH();
+    flo.style.top=h+'px';
+    var extra=(flo.style.display!=='none')?flo.getBoundingClientRect().height:0;
+    document.body.style.paddingTop=(h+extra+4)+'px';
+  }
+  var lastIdx=-2;
+  function update(){
+    var line=barH()+2, idx=-1;
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].header.getBoundingClientRect().top<=line+1) idx=i;
+    }
+    if(idx<0){
+      if(flo.style.display!=='none'){flo.style.display='none';pad();lastIdx=-1;}
+      return;
+    }
+    if(flo.style.display==='none'){flo.style.display='flex';}
+    nameEl.textContent=secs[idx].name;
+    cdEl.textContent=secs[idx].cd.textContent;
+    cdEl.className=(secs[idx].cd.className.indexOf('urgent')>=0)?'wt-sf-cd urgent':'wt-sf-cd';
+    if(idx+1<secs.length){
+      var nm=secs[idx+1].name.replace(/^[^A-Za-z0-9]+/,'').trim();
+      nextEl.textContent='Next: '+nm;
+    } else { nextEl.textContent='Last section'; }
+    if(idx!==lastIdx){pad();lastIdx=idx;}
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',function(){pad();update();});
+  setInterval(function(){if(flo.style.display!=='none')update();},500);
+  pad();update();
 })();
 </script>
 </body>
