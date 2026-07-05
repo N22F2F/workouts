@@ -914,7 +914,27 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
   var C=2*Math.PI*33;
   ring.style.strokeDasharray=C.toFixed(2);
   ring.style.strokeDashoffset='0';
-  var total=0,remain=0,ivl=null,audioCtx=null;
+  var total=0,remain=0,ivl=null,audioCtx=null,lastBucket=0;
+  var chosenVoice=null;
+  function pickVoice(){
+    if(!('speechSynthesis' in window))return null;
+    var voices=window.speechSynthesis.getVoices();
+    if(!voices||!voices.length)return null;
+    var prefs=[/samantha/i,/female/i,/zira/i,/victoria/i,/ava\b/i,/allison/i,/google us english/i,/moira/i,/karen/i,/jenny/i];
+    for(var p=0;p<prefs.length;p++){
+      for(var i=0;i<voices.length;i++){
+        if(prefs[p].test(voices[i].name) && /^en/i.test(voices[i].lang)) return voices[i];
+      }
+    }
+    for(var i=0;i<voices.length;i++){
+      if(/en-US/i.test(voices[i].lang)) return voices[i];
+    }
+    return voices[0];
+  }
+  if('speechSynthesis' in window){
+    chosenVoice=pickVoice();
+    window.speechSynthesis.addEventListener('voiceschanged',function(){chosenVoice=pickVoice();});
+  }
   function beep(){
     try{
       audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
@@ -926,6 +946,16 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
       o.start();o.stop(audioCtx.currentTime+0.5);
     }catch(e){}
   }
+  function speak(text){
+    try{
+      if(!('speechSynthesis' in window))return;
+      window.speechSynthesis.cancel();
+      var u=new SpeechSynthesisUtterance(text);
+      if(chosenVoice)u.voice=chosenVoice;
+      u.rate=1;u.pitch=1.55;u.volume=1;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
   function render(){
     numEl.textContent=remain;
     var frac=total>0?remain/total:0;
@@ -933,7 +963,7 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
   }
   window.rtStart=function(sec){
     clearInterval(ivl);
-    total=sec;remain=sec;
+    total=sec;remain=sec;lastBucket=0;
     picker.style.display='none';
     active.style.display='flex';
     active.classList.remove('done');
@@ -947,11 +977,18 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
         remain=Math.max(0,remain-whole);
         last+=whole*1000;
         render();
+        var elapsed=total-remain;
+        var bucket=Math.floor(elapsed/10);
+        if(bucket>lastBucket && remain>0){
+          lastBucket=bucket;
+          speak('OK babe, '+remain+' seconds left');
+        }
       }
       if(remain<=0){
         clearInterval(ivl);
         active.classList.add('done');
         beep();
+        speak("Babe, that rocked");
         if(navigator.vibrate)navigator.vibrate([120,60,120]);
         setTimeout(rtCancel,1500);
       }
@@ -962,6 +999,7 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
     active.style.display='none';
     active.classList.remove('done');
     picker.style.display='flex';
+    if('speechSynthesis' in window)window.speechSynthesis.cancel();
   };
 })();
 </script>
