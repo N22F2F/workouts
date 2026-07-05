@@ -256,6 +256,22 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
 .wt-sf-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
 .wt-sf-next{font-size:9px;font-weight:800;font-family:'Nunito',sans-serif;color:#9a7788;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
 </style>
+<style id="rest-timer-styles">
+.rt-widget{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom, 0px));z-index:9997;font-family:'Nunito',sans-serif}
+.rt-picker{display:flex;flex-direction:column;gap:10px}
+.rt-btn{-webkit-appearance:none;appearance:none;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,182,193,0.45);background:linear-gradient(135deg,#ff1493,#ff69b4);color:#fff;font-weight:900;font-size:13px;font-family:'Nunito',sans-serif;box-shadow:0 4px 16px rgba(255,20,147,0.45),0 2px 8px rgba(0,0,0,0.5);cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;transition:transform 0.15s}
+.rt-btn:active{transform:scale(0.9)}
+.rt-active{position:relative;width:76px;height:76px;display:flex;align-items:center;justify-content:center}
+.rt-ring{position:absolute;top:0;left:0;width:76px;height:76px;transform:rotate(-90deg)}
+.rt-ring-bg{fill:none;stroke:rgba(255,182,193,0.18);stroke-width:5}
+.rt-ring-fg{fill:none;stroke:#ff1493;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 0.25s linear}
+.rt-num{font-size:22px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;font-family:'Nunito',sans-serif;z-index:1}
+.rt-cancel{-webkit-appearance:none;appearance:none;position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:rgba(20,8,16,0.95);border:1px solid rgba(255,182,193,0.4);color:#ffb6c1;font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+@-webkit-keyframes rtPulse{0%,100%{opacity:1}50%{opacity:0.35}}
+@keyframes rtPulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.rt-active.done .rt-num{color:#ff69b4;-webkit-animation:rtPulse 0.6s ease-in-out infinite;animation:rtPulse 0.6s ease-in-out infinite}
+.rt-active.done .rt-ring-fg{stroke:#ff69b4;-webkit-animation:rtPulse 0.6s ease-in-out infinite;animation:rtPulse 0.6s ease-in-out infinite}
+</style>
 </head>
 <body>
 <canvas id="hearts-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.75"></canvas>
@@ -872,6 +888,81 @@ details.cptf-details > .cptf-body{padding:2px 0 6px}
   window.addEventListener('resize',function(){pad();update();});
   setInterval(function(){if(flo.style.display!=='none')update();},500);
   pad();update();
+})();
+</script>
+<div class="rt-widget" id="rt-widget">
+  <div class="rt-picker" id="rt-picker">
+    <button class="rt-btn" onclick="rtStart(30);return false;">30s</button>
+    <button class="rt-btn" onclick="rtStart(45);return false;">45s</button>
+    <button class="rt-btn" onclick="rtStart(60);return false;">60s</button>
+  </div>
+  <div class="rt-active" id="rt-active" style="display:none">
+    <svg class="rt-ring" viewBox="0 0 76 76">
+      <circle class="rt-ring-bg" cx="38" cy="38" r="33"></circle>
+      <circle class="rt-ring-fg" id="rt-ring-fg" cx="38" cy="38" r="33"></circle>
+    </svg>
+    <span class="rt-num" id="rt-num">30</span>
+    <button class="rt-cancel" id="rt-cancel" onclick="rtCancel();return false;">&#10005;</button>
+  </div>
+</div>
+<script id="rest-timer-js">
+(function(){
+  var picker=document.getElementById('rt-picker');
+  var active=document.getElementById('rt-active');
+  var numEl=document.getElementById('rt-num');
+  var ring=document.getElementById('rt-ring-fg');
+  var C=2*Math.PI*33;
+  ring.style.strokeDasharray=C.toFixed(2);
+  ring.style.strokeDashoffset='0';
+  var total=0,remain=0,ivl=null,audioCtx=null;
+  function beep(){
+    try{
+      audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+      var o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type='sine';o.frequency.value=880;
+      o.connect(g);g.connect(audioCtx.destination);
+      g.gain.setValueAtTime(0.18,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.5);
+      o.start();o.stop(audioCtx.currentTime+0.5);
+    }catch(e){}
+  }
+  function render(){
+    numEl.textContent=remain;
+    var frac=total>0?remain/total:0;
+    ring.style.strokeDashoffset=(C*(1-frac)).toFixed(2);
+  }
+  window.rtStart=function(sec){
+    clearInterval(ivl);
+    total=sec;remain=sec;
+    picker.style.display='none';
+    active.style.display='flex';
+    active.classList.remove('done');
+    render();
+    var last=Date.now();
+    ivl=setInterval(function(){
+      var now=Date.now();
+      var delta=(now-last)/1000;
+      if(delta>=1){
+        var whole=Math.floor(delta);
+        remain=Math.max(0,remain-whole);
+        last+=whole*1000;
+        render();
+      }
+      if(remain<=0){
+        clearInterval(ivl);
+        active.classList.add('done');
+        beep();
+        if(navigator.vibrate)navigator.vibrate([120,60,120]);
+        setTimeout(rtCancel,1500);
+      }
+    },200);
+  };
+  window.rtCancel=function(){
+    clearInterval(ivl);
+    active.style.display='none';
+    active.classList.remove('done');
+    picker.style.display='flex';
+  };
 })();
 </script>
 </body>
