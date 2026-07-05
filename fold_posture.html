@@ -615,7 +615,7 @@ html{scroll-behavior:smooth}
   ring.style.strokeDasharray=C.toFixed(2);
   ring.style.strokeDashoffset='0';
   var total=0,remain=0,ivl=null,audioCtx=null,lastBucket=0;
-  var chosenVoice=null;
+  var chosenVoice=null,voiceTries=0;
   function pickVoice(){
     if(!('speechSynthesis' in window))return null;
     var voices=window.speechSynthesis.getVoices();
@@ -631,9 +631,17 @@ html{scroll-behavior:smooth}
     }
     return voices[0];
   }
-  if('speechSynthesis' in window){
+  function tryLoadVoice(){
+    if(!('speechSynthesis' in window))return;
     chosenVoice=pickVoice();
-    window.speechSynthesis.addEventListener('voiceschanged',function(){chosenVoice=pickVoice();});
+    if(!chosenVoice&&voiceTries<10){
+      voiceTries++;
+      setTimeout(tryLoadVoice,300);
+    }
+  }
+  if('speechSynthesis' in window){
+    tryLoadVoice();
+    window.speechSynthesis.addEventListener('voiceschanged',tryLoadVoice);
   }
   function beep(){
     try{
@@ -649,11 +657,12 @@ html{scroll-behavior:smooth}
   function speak(text){
     try{
       if(!('speechSynthesis' in window))return;
-      window.speechSynthesis.cancel();
+      var synth=window.speechSynthesis;
+      if(synth.speaking||synth.pending)synth.cancel();
       var u=new SpeechSynthesisUtterance(text);
       if(chosenVoice)u.voice=chosenVoice;
       u.rate=1;u.pitch=1.55;u.volume=1;
-      window.speechSynthesis.speak(u);
+      synth.speak(u);
     }catch(e){}
   }
   function render(){
@@ -668,6 +677,11 @@ html{scroll-behavior:smooth}
     active.style.display='flex';
     active.classList.remove('done');
     render();
+    if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      if(!chosenVoice)chosenVoice=pickVoice();
+    }
+    speak("OK babe, let's go");
     var last=Date.now();
     ivl=setInterval(function(){
       var now=Date.now();
