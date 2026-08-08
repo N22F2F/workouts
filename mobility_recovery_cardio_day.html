@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+<title>Mobility &amp; Recovery Cardio Day (~95–105 min)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+@keyframes shimmer{0%{background-position:-400% center}100%{background-position:400% center}}
+@keyframes softPulse{0%,100%{box-shadow:0 4px 20px rgba(255,182,193,0.3),0 0 40px rgba(255,105,180,0.15)}50%{box-shadow:0 4px 30px rgba(255,182,193,0.5),0 0 60px rgba(255,105,180,0.25)}}
+@keyframes heartFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.05)}}
+@keyframes twinkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes titleFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes borderSoft{0%{border-color:rgba(255,182,193,0.5)}50%{border-color:rgba(255,105,180,0.7)}100%{border-color:rgba(255,182,193,0.5)}}
+
+:root{
+  --bg:#000000;
+  --bg2:#221018;
+  --bg3:#2a1520;
+  --hot:#ff69b4;
+  --pink:#ffb6c1;
+  --blush:#ffe4e8;
+  --rose:#ff1493;
+  --gold:#f0c8a0;
+  --cream:#fff8f0;
+  --ink:#fff0f4;
+  --ink2:#ffd8e4;
+  --ink3:#d4a0b8;
+  --border:rgba(255,182,193,0.25);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+
+body{
+  font-family:'Nunito',-apple-system,sans-serif;
+  background:#000000;
+  color:var(--ink);
+  padding:10px;
+  -webkit-text-size-adjust:100%;
+  min-height:100vh;
+}
+
+/* TITLE */
+.title{
+  padding:14px 16px;
+  font-weight:900;
+  font-size:20px;
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493,#ffb6c1,#f0c8a0,#ffb6c1,#ff69b4);
+  background-size:300%;
+  animation:titleFlow 5s ease infinite;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  border-bottom:2px solid rgba(255,182,193,0.3);
+  white-space:nowrap;
+  position:relative;
+  letter-spacing:0.3px;
+}
+.title::after{
+  content:'🩷 ✨ 🩷';
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:13px;-webkit-text-fill-color:initial;
+  animation:heartFloat 2s ease-in-out infinite;
+}
+
+/* CARDS */
+.card,.day-panel{
+  background:linear-gradient(145deg,rgba(255,182,193,0.08),rgba(34,16,24,0.97),rgba(255,105,180,0.05));
+  border-radius:20px;
+  margin:10px 0;
+  border:1px solid rgba(255,182,193,0.25);
+  animation:softPulse 4s ease-in-out infinite, borderSoft 6s ease-in-out infinite;
+  overflow:hidden;position:relative;
+  box-shadow:0 8px 32px rgba(255,20,147,0.12),0 2px 8px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.card::before,.day-panel::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(145deg,rgba(255,182,193,0.06) 0%,transparent 35%,rgba(255,105,180,0.03) 100%);
+  pointer-events:none;
+}
+.card::after,.day-panel::after{
+  content:'🩷';position:absolute;top:10px;right:12px;
+  font-size:12px;animation:twinkle 3s ease-in-out infinite;pointer-events:none;
+}
+.outer,.wrap{width:100%;padding-bottom:40px}
+
+/* SECTIONS */
+.section{
+  grid-column:1/-1;font-weight:800;font-size:12px;
+  padding:8px 14px;border-radius:12px;margin:10px 0 4px;
+  letter-spacing:1.2px;text-transform:uppercase;
+  position:relative;font-family:'Nunito',sans-serif;
+}
+
+.red    {background:linear-gradient(135deg,rgba(255,100,150,0.2),rgba(255,100,150,0.06));color:#ffb6c1;border-left:3px solid rgba(255,100,150,0.6)}
+.blue   {background:linear-gradient(135deg,rgba(180,140,255,0.2),rgba(180,140,255,0.06));color:#d4b0ff;border-left:3px solid rgba(180,140,255,0.5)}
+.green  {background:linear-gradient(135deg,rgba(150,230,180,0.15),rgba(150,230,180,0.05));color:#b0f0c8;border-left:3px solid rgba(150,230,180,0.4)}
+.orange {background:linear-gradient(135deg,rgba(255,200,100,0.2),rgba(255,200,100,0.06));color:#ffd8a0;border-left:3px solid rgba(255,200,100,0.5)}
+.amber  {background:linear-gradient(135deg,rgba(240,200,160,0.2),rgba(240,200,160,0.06));color:var(--gold);border-left:3px solid rgba(240,200,160,0.5)}
+.pink   {background:linear-gradient(135deg,rgba(255,182,193,0.25),rgba(255,105,180,0.08));color:#ffd0dd;border-left:3px solid rgba(255,182,193,0.7)}
+.cyan   {background:linear-gradient(135deg,rgba(140,220,255,0.15),rgba(140,220,255,0.05));color:#b0e8ff;border-left:3px solid rgba(140,220,255,0.4)}
+.purple {background:linear-gradient(135deg,rgba(210,160,255,0.2),rgba(210,160,255,0.06));color:#e8c8ff;border-left:3px solid rgba(210,160,255,0.5)}
+.rose   {background:linear-gradient(135deg,rgba(255,105,180,0.25),rgba(255,20,147,0.08));color:#ffccd8;border-left:3px solid rgba(255,105,180,0.7)}
+
+/* TEXT */
+.text{
+  font-size:14px;line-height:1.7;padding:5px 10px;
+  border-radius:8px;color:var(--ink2);
+  word-break:break-word;white-space:nowrap;
+  font-family:'Nunito',sans-serif;
+}
+
+
+/* INPUT BOXES */
+.box{
+  height:34px;
+  border:1px solid rgba(255,182,193,0.45);
+  border-radius:14px;
+  background:rgba(255,182,193,0.06);
+  color:#ffccd8;
+  font-size:13px;font-weight:700;
+  padding:0 10px;
+  font-family:'Nunito',sans-serif;
+  -webkit-appearance:none;appearance:none;outline:none;
+  transition:all 0.3s;
+  box-shadow:0 0 8px rgba(255,182,193,0.1),inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.box:focus{
+  border-color:var(--hot);
+  box-shadow:0 0 0 3px rgba(255,105,180,0.2),0 0 16px rgba(255,105,180,0.4);
+  background:rgba(255,105,180,0.08);color:#fff;
+}
+
+/* BACK BUTTON */
+.backbtn{
+  display:inline-block;text-decoration:none;
+  background:linear-gradient(135deg,#ff1493,#ff69b4,#ffb6c1,#ff69b4,#ff1493);
+  background-size:300%;animation:shimmer 3s linear infinite;
+  color:#fff;font-weight:800;font-size:14px;
+  font-family:'Nunito',sans-serif;
+  padding:10px 22px;border-radius:16px;margin:8px 0;
+  box-shadow:0 0 20px rgba(255,105,180,0.5),0 4px 15px rgba(0,0,0,0.3);
+  letter-spacing:0.3px;
+}
+
+/* HOWTO POPUPS */
+.howto-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.extap{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:var(--ink2)}
+.extap:hover{color:var(--hot)}
+.howto{
+  display:none;grid-column:1/-1;
+  border:1px solid rgba(255,182,193,0.3);border-radius:16px;
+  margin:4px 0 12px;
+  background:linear-gradient(135deg,rgba(255,105,180,0.07),rgba(255,182,193,0.04));
+  padding:14px 16px;
+  animation:softPulse 4s ease-in-out infinite;
+}
+.howto .text{white-space:normal;color:var(--ink3);font-size:13px;line-height:1.8}
+.howto .section{margin-top:6px;font-size:11px}
+.howto .backbtn{font-size:12px;padding:6px 14px;margin:10px 0 0}
+
+/* ACCORDIONS */
+details{
+  background:linear-gradient(145deg,rgba(255,182,193,0.06),var(--bg2));
+  border-radius:18px;margin:8px 0;
+  border:1px solid rgba(255,182,193,0.2);overflow:hidden;
+  animation:softPulse 4s ease-in-out infinite;
+  box-shadow:0 4px 20px rgba(255,20,147,0.08);
+}
+details summary{
+  display:flex;align-items:center;justify-content:space-between;
+  font-weight:800;font-size:15px;padding:14px 16px;
+  cursor:pointer;list-style:none;-webkit-appearance:none;
+  user-select:none;-webkit-user-select:none;
+  background:linear-gradient(135deg,rgba(255,105,180,0.12),rgba(255,182,193,0.08),rgba(240,200,160,0.05));
+  background-size:300%;animation:shimmer 6s linear infinite;
+  color:var(--pink);letter-spacing:0.2px;
+  font-family:'Nunito',sans-serif;
+}
+details summary::-webkit-details-marker{display:none}
+details summary .arrow{
+  font-size:22px;opacity:0.9;flex-shrink:0;margin-left:8px;
+  transition:transform 0.3s;color:var(--hot);
+  animation:heartFloat 2s ease-in-out infinite;
+}
+details[open] summary .arrow{transform:rotate(90deg)}
+details .ac-body{border-top:1px solid rgba(255,182,193,0.15)}
+details .ac-body .content{display:grid;grid-template-columns:1fr 110px;gap:3px 6px;padding:12px 16px 18px;align-items:center;width:100%}
+details.howto>summary{padding:10px 14px;font-size:14px}
+details.howto>summary::before{content:"🩷 "}
+details.howto[open]>summary::before{content:"🩷 "}
+details.howto>summary::-webkit-details-marker{display:none}
+
+a.exlink{color:var(--gold);text-underline-offset:2px}
+a.exlink::after{content:" 🩷";font-size:11px;opacity:0.8;text-decoration:none}
+
+.panels{padding:0 6px}
+.row{display:contents}
+.row.cyan,.row.green,.row.blue{display:contents}
+
+.fullrow{grid-column:1/-1}
+html{scroll-behavior:smooth}
+[id^="instr-"],[id^="ex-"]{scroll-margin-top:10px}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:rgba(255,182,193,0.05)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ff69b4,#ffb6c1);border-radius:3px}
+
+.content{ display:grid; grid-template-columns:max-content repeat(4, 65px); gap:3px 6px; padding:6px; align-items:center; width:max-content; min-width:100%; }
+#t-p8:checked ~ .howto-p8,#t-p9:checked ~ .howto-p9,#t-p10:checked ~ .howto-p10{display:block}
+.appendix-hidden{display:none}
+
+
+details.cptf-details{
+  grid-column:1/-1;margin:4px 0 6px;
+  border:1px solid rgba(100,220,255,0.2);border-radius:12px;
+  background:rgba(100,220,255,0.03);
+}
+details.cptf-details > summary.cptf-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;cursor:pointer;list-style:none;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  color:var(--cyan,#7ee8fa);letter-spacing:0.2px;
+  -webkit-appearance:none;
+}
+details.cptf-details > summary::-webkit-details-marker{display:none}
+.cptf-arrow{font-size:11px;opacity:0.7;transition:transform 0.25s;flex-shrink:0}
+details.cptf-details[open] .cptf-arrow{transform:rotate(90deg)}
+details.cptf-details > .cptf-body{padding:2px 0 6px}
+.subhead{grid-column:1/-1;font-size:13px;font-weight:800;color:var(--ink2);padding:8px 10px 2px;font-family:'Nunito',sans-serif;}
+.intro-card{background:linear-gradient(145deg,rgba(255,182,193,0.08),rgba(34,16,24,0.97));border:1px solid rgba(255,182,193,0.25);border-radius:16px;padding:14px 16px;margin:10px 0;color:var(--ink2);font-size:13px;line-height:1.7;white-space:normal;font-family:'Nunito',sans-serif;}
+.intro-card b{color:var(--gold)}
+.intro-card ul{margin:6px 0 0 18px;padding:0}
+.intro-card li{margin:4px 0}
+.howto-p8,.howto-p9,.howto-p10{display:none}
+</style>
+
+<style id="timer-styles">
+.wt-sticky{position:fixed;top:0;left:0;right:0;z-index:9999;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;gap:8px;padding:8px 14px;background:rgba(20,8,16,0.97);border-bottom:1px solid rgba(255,105,180,0.3);box-sizing:border-box;width:100%}
+.wt-title-text{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#ff69b4,#ffb6c1,#ff1493);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-clock{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;line-height:1.15;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-clock-main{font-size:15px;font-weight:900;font-family:'Nunito',sans-serif;font-variant-numeric:tabular-nums;color:#ff69b4;-webkit-text-fill-color:#ff69b4;white-space:nowrap}
+.wt-clock-sub{font-size:9px;font-weight:700;font-family:'Nunito',sans-serif;color:#d4a0b8;-webkit-text-fill-color:#d4a0b8}
+.wt-btn{-webkit-appearance:none;appearance:none;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;padding:6px 10px;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-flex-shrink:0;flex-shrink:0;display:inline-block}
+.wt-btn-start{background:#ff1493;color:#fff;-webkit-text-fill-color:#fff}
+.wt-btn-pause{background:rgba(255,182,193,0.2);color:#ffb6c1;-webkit-text-fill-color:#ffb6c1;border:1px solid rgba(255,182,193,0.4)}
+.wt-btn-reset{background:rgba(255,182,193,0.1);color:#d4a0b8;-webkit-text-fill-color:#d4a0b8;border:1px solid rgba(255,182,193,0.2)}
+.sec-badge{display:inline;margin-left:6px;font-size:10px;font-weight:800;opacity:0.8;white-space:nowrap}
+.sec-badge-cd{font-size:11px;font-weight:900;font-variant-numeric:tabular-nums}
+@-webkit-keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes cdUrgent{0%,100%{opacity:1}50%{opacity:0.2}}
+.sec-badge-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
+.wt-secfloat{position:fixed;left:0;right:0;z-index:9998;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;gap:10px;padding:5px 14px;background:rgba(8,3,6,0.97);border-bottom:1px solid rgba(255,105,180,0.22);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,0.5);box-sizing:border-box}
+.wt-sf-left{display:-webkit-flex;display:flex;-webkit-align-items:baseline;align-items:baseline;gap:8px;min-width:0}
+.wt-sf-name{font-size:12px;font-weight:900;font-family:'Nunito',sans-serif;letter-spacing:0.6px;text-transform:uppercase;color:#ffd0dd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wt-sf-cd{font-size:14px;font-weight:900;font-family:'Nunito',sans-serif;font-variant-numeric:tabular-nums;color:#ff69b4;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0}
+.wt-sf-cd.urgent{-webkit-animation:cdUrgent 0.7s ease-in-out infinite;animation:cdUrgent 0.7s ease-in-out infinite}
+.wt-sf-next{font-size:9px;font-weight:800;font-family:'Nunito',sans-serif;color:#9a7788;white-space:nowrap;-webkit-flex-shrink:0;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
+</style>
+<style id="rest-timer-styles">
+.rt-widget{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom, 0px));z-index:9997;font-family:'Nunito',sans-serif}
+.rt-picker{display:flex;flex-direction:column;gap:10px}
+.rt-btn{-webkit-appearance:none;appearance:none;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,182,193,0.45);background:linear-gradient(135deg,#ff1493,#ff69b4);color:#fff;font-weight:900;font-size:13px;font-family:'Nunito',sans-serif;box-shadow:0 4px 16px rgba(255,20,147,0.45),0 2px 8px rgba(0,0,0,0.5);cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;transition:transform 0.15s}
+.rt-btn:active{transform:scale(0.9)}
+.rt-active{position:relative;width:76px;height:76px;display:flex;align-items:center;justify-content:center}
+.rt-ring{position:absolute;top:0;left:0;width:76px;height:76px;transform:rotate(-90deg)}
+.rt-ring-bg{fill:none;stroke:rgba(255,182,193,0.18);stroke-width:5}
+.rt-ring-fg{fill:none;stroke:#ff1493;stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 0.25s linear}
+.rt-num{font-size:22px;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;font-family:'Nunito',sans-serif;z-index:1}
+.rt-cancel{-webkit-appearance:none;appearance:none;position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:rgba(20,8,16,0.95);border:1px solid rgba(255,182,193,0.4);color:#ffb6c1;font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+@-webkit-keyframes rtPulse{0%,100%{opacity:1}50%{opacity:0.35}}
+@keyframes rtPulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.rt-active.done .rt-num{color:#ff69b4;-webkit-animation:rtPulse 0.6s ease-in-out infinite;animation:rtPulse 0.6s ease-in-out infinite}
+.rt-active.done .rt-ring-fg{stroke:#ff69b4;-webkit-animation:rtPulse 0.6s ease-in-out infinite;animation:rtPulse 0.6s ease-in-out infinite}
+</style>
+</head>
+<body>
+<canvas id="hearts-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.75"></canvas>
+<script>
+(function(){
+  var c=document.getElementById('hearts-canvas');
+  var ctx=c.getContext('2d');
+  var hearts=[];
+  var starbursts=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+
+  var pinkColors=['#ff69b4','#ff1493','#ffb6c1','#ff85c2','#ff3399','#ffccd8'];
+  var sparkleColors=['#ffffff','#fff0f5','#ffe0ee','#ffccdd','#f0c0d0','#ffd0e8'];
+
+  // Floating hearts
+  for(var i=0;i<30;i++){
+    hearts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight+window.innerHeight,
+      size:Math.random()*28+12,
+      speed:Math.random()*0.5+0.2,
+      drift:Math.random()*0.4-0.2,
+      opacity:Math.random()*0.65+0.35,
+      color:pinkColors[Math.floor(Math.random()*pinkColors.length)],
+      wobble:Math.random()*Math.PI*2,
+      wobbleSpeed:Math.random()*0.02+0.01
+    });
+  }
+
+  // Star burst sparkles — the sharp cross-ray ones like in the image
+  for(var j=0;j<40;j++){
+    starbursts.push({
+      x:Math.random()*window.innerWidth,
+      y:Math.random()*window.innerHeight,
+      size:Math.random()*10+3,
+      phase:Math.random()*Math.PI*2,
+      speed:Math.random()*0.025+0.008,
+      color:sparkleColors[Math.floor(Math.random()*sparkleColors.length)],
+      rotation:Math.random()*Math.PI/4,  // slight rotation variety
+      gold:Math.random()<0.3  // 30% gold sparkles
+    });
+  }
+
+  function drawHeart(ctx,x,y,s,color,alpha){
+    ctx.save();
+    ctx.globalAlpha=alpha;ctx.fillStyle=color;
+    ctx.shadowColor=color;ctx.shadowBlur=s*1.2;
+    ctx.beginPath();
+    ctx.moveTo(x,y+s*0.3);
+    ctx.bezierCurveTo(x,y,x-s*0.55,y,x-s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x-s*0.55,y+s*0.6,x,y+s*0.9,x,y+s*1.05);
+    ctx.bezierCurveTo(x,y+s*0.9,x+s*0.55,y+s*0.6,x+s*0.55,y+s*0.3);
+    ctx.bezierCurveTo(x+s*0.55,y,x,y,x,y+s*0.3);
+    ctx.fill();ctx.restore();
+  }
+
+  function drawStarburst(ctx, sb){
+    // The sharp 4-point star with long thin rays — like camera lens flare / glitter
+    var brightness = Math.abs(Math.sin(sb.phase));
+    var alpha = brightness * 0.45 + 0.03;
+    var s = sb.size * (0.3 + 0.7 * brightness);
+    var color = sb.gold ? ('#f0c060') : sb.color;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(sb.x, sb.y);
+    ctx.rotate(sb.rotation);
+
+    // Glow halo behind
+    var grad = ctx.createRadialGradient(0,0,0, 0,0,s*3);
+    grad.addColorStop(0, sb.gold ? 'rgba(240,192,96,0.6)' : 'rgba(255,255,255,0.5)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(0,0,s*3,0,Math.PI*2);
+    ctx.fill();
+
+    // Main cross rays — long thin diamond shape
+    ctx.shadowColor = color;
+    ctx.shadowBlur = s * 2;
+    ctx.fillStyle = color;
+
+    // Long vertical ray
+    ctx.beginPath();
+    ctx.moveTo(0, -s*5);
+    ctx.lineTo(s*0.15, -s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, -s*0.5);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, s*5);
+    ctx.lineTo(s*0.15, s*0.5);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.15, s*0.5);
+    ctx.closePath();ctx.fill();
+
+    // Long horizontal ray
+    ctx.beginPath();
+    ctx.moveTo(-s*5, 0);
+    ctx.lineTo(-s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*5, 0);
+    ctx.lineTo(s*0.5, s*0.15);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(s*0.5, -s*0.15);
+    ctx.closePath();ctx.fill();
+
+    // Diagonal shorter rays
+    ctx.globalAlpha = alpha * 0.5;
+    ctx.beginPath();
+    ctx.moveTo(-s*3, -s*3);
+    ctx.lineTo(-s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, -s*3);
+    ctx.lineTo(s*0.3, -s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,-s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(-s*3, s*3);
+    ctx.lineTo(-s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(-s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(s*3, s*3);
+    ctx.lineTo(s*0.3, s*0.1);
+    ctx.lineTo(0,0);ctx.lineTo(s*0.1,s*0.3);
+    ctx.closePath();ctx.fill();
+
+    // Bright centre dot
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(0,0,s*0.4,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.restore();ctx.globalAlpha=1;
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+
+    // Hearts
+    hearts.forEach(function(h){
+      h.y-=h.speed;h.wobble+=h.wobbleSpeed;
+      h.x+=Math.sin(h.wobble)*0.4+h.drift;
+      if(h.y<-80){h.y=c.height+60;h.x=Math.random()*c.width;}
+      drawHeart(ctx,h.x,h.y,h.size,h.color,h.opacity);
+    });
+
+    // Starbursts — twinkling in place
+    starbursts.forEach(function(sb){
+      sb.phase+=sb.speed;
+      drawStarburst(ctx, sb);
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+
+
+
+<div class="wt-sticky"><span class="wt-title-text">Mobility &amp; Recovery Cardio Day (~95–105 min)</span><div class="wt-clock"><span class="wt-clock-main" id="wt-main">1:50:00</span><span class="wt-clock-sub" id="wt-sub">~110 min total</span></div><button class="wt-btn wt-btn-start" id="wt-start" onclick="wtStart();return false;">&#9654; Start</button><button class="wt-btn wt-btn-pause" id="wt-pause" onclick="wtPause();return false;" style="display:none">&#9646;&#9646; Pause</button><button class="wt-btn wt-btn-reset" id="wt-reset" onclick="wtReset();return false;">&#8635;</button></div>
+<div class="wt-secfloat" id="wt-secfloat" style="display:none">
+  <div class="wt-sf-left"><span class="wt-sf-name" id="wt-sf-name"></span><span class="wt-sf-cd" id="wt-sf-cd"></span></div>
+  <span class="wt-sf-next" id="wt-sf-next"></span>
+</div>
+<div class="outer">
+<div class="panels">
+<div class="day-panel">
+
+<div class="title">Mobility &amp; Recovery Cardio Day (~95–105 min)</div>
+<div class="intro-card"><b>Focus:</b> No lifting. Support recovery from the Muscle day, keep fat-loss cardio ticking over, and give core control work its own room. If you feel run down, it's fine to shorten or skip cardio entirely.</div><div class="content"><div class="section blue" id="sec-warmup">🔵 Warm-up / Gentle Movement (~10m) <span class="sec-badge sec-badge-cd" id="wcd-warmup"></span></div><div class="text">Easy 5 min walk or march in place</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Cat-cow x8 — slow and controlled</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Hip circle x8 each way</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Arm circle x10 each way (+ x10 backward)</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Bodyweight squat x5 — very easy</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Bodyweight side bend x8/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Glute bridge x15 (bodyweight, activation only)</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Child's pose hold — 30 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="section amber" id="sec-cardio">🟠 Cardio — Easy/Moderate (~60m) <span class="sec-badge sec-badge-cd" id="wcd-cardio"></span></div><div class="subhead">Primary — easy/moderate, this is the recovery engine</div><div class="text">60 min treadmill, 5.5% incline, 5.5 kph, effort 3–5/10 (Zone 2 — conversational pace)</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="section pink" id="sec-core">🩷 Core / Waist (~10m) <span class="sec-badge sec-badge-cd" id="wcd-core"></span></div><div class="text">RKC plank — 2–3x15–25 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">90/90 breathing — 2 rounds of 3–5 breaths</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Pallof press — 2–3x10–12/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Vacuum holds — 2–3x15–30 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Dead bug — 3x10–12/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Reverse crunch — 3x12–15</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Side plank — 3x30–45 sec/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input type="checkbox" id="t-p8" class="howto-toggle"><label for="t-p8" class="extap" style="grid-column:1/-1;font-size:13px;padding:4px 10px;display:block;">How to: RKC Plank &rarr;</label><div class="howto howto-p8"><div class="section pink">P8: RKC Plank</div><div class="section pink" style="margin-top:6px">What is it</div><div class="text" style="white-space:normal">A hardstyle plank variation. Looks like a normal forearm plank — instead of just holding, you create full-body tension.</div><div class="section pink" style="margin-top:6px">How to do it</div><div class="text" style="white-space:normal">Set up on forearms, elbows under shoulders. Legs straight, feet about hip-width or a bit narrower. Tuck pelvis slightly so ribs stay down. Squeeze glutes hard. Squeeze quads. Pull elbows toward toes without actually moving. Pull toes toward elbows without actually moving. Brace abs as if someone is about to punch you.</div><div class="section pink" style="margin-top:6px">What you should feel</div><div class="text" style="white-space:normal">Deep abdominal tension. Glutes and quads working. Sometimes lats too. Much more intense than a regular plank.</div><div class="section pink" style="margin-top:6px">How long</div><div class="text" style="white-space:normal">Usually short holds: 10–30 seconds. Quality over duration.</div><div class="section pink" style="margin-top:6px">Why it's in the plan</div><div class="text" style="white-space:normal">Builds waist control and trunk stiffness. Core bracing without side-bending or heavy oblique loading.</div><div class="section pink" style="margin-top:6px">Common mistakes</div><div class="text" style="white-space:normal">Lower back sagging. Hips too high. Just hanging out instead of creating tension. Holding too long and losing position.</div><div class="section pink" style="margin-top:6px">Quick cue</div><div class="text" style="white-space:normal">Squeeze everything and drag elbows to toes.</div><label for="t-p8" class="backbtn extap" style="display:inline-block">Close</label></div><input type="checkbox" id="t-p9" class="howto-toggle"><label for="t-p9" class="extap" style="grid-column:1/-1;font-size:13px;padding:4px 10px;display:block;">How to: 90/90 Breathing &rarr;</label><div class="howto howto-p9"><div class="section pink">P9: 90/90 Breathing</div><div class="section pink" style="margin-top:6px">What is it</div><div class="text" style="white-space:normal">A breathing drill to get ribs stacked over pelvis. Switches down from a flared-rib posture. Hips at ~90°, knees at ~90°. Usually lying on back, feet on bench/wall/chair.</div><div class="section pink" style="margin-top:6px">How to do it</div><div class="text" style="white-space:normal">Lie on back. Feet flat on wall/bench/chair, hips and knees both ~90°. Lightly tuck pelvis so lower back is gently heavy on floor. Keep ribs down, not flared. Inhale quietly through nose. Exhale fully through mouth like fogging a mirror. At end of exhale, feel abs turn on without crunching. Pause briefly. Inhale again without losing rib/pelvis position. Cue: gently pull heels down wall without moving them.</div><div class="section pink" style="margin-top:6px">What you should feel</div><div class="text" style="white-space:normal">Lower ribs coming down on the exhale. Abs turning on. Less arch in the low back. Sometimes hamstrings lightly if using the wall correctly.</div><div class="section pink" style="margin-top:6px">How much</div><div class="text" style="white-space:normal">Usually 2 rounds of 3–5 breaths. Quality over rushing.</div><div class="section pink" style="margin-top:6px">Why it's in the plan</div><div class="text" style="white-space:normal">Improves waist control. Helps core positioning for lifts. Can reduce over-arching through the lower back. Pairs well with vacuum holds, planks, and glute training.</div><div class="section pink" style="margin-top:6px">Common mistakes</div><div class="text" style="white-space:normal">Inhaling into chest only. Arching the lower back. Forcing a huge pelvic tuck. Pushing with quads instead of lightly using hamstrings. Rushing the breaths.</div><div class="section pink" style="margin-top:6px">Quick cue</div><div class="text" style="white-space:normal">Exhale fully, ribs down, heels lightly pull down the wall.</div><label for="t-p9" class="backbtn extap" style="display:inline-block">Close</label></div><input type="checkbox" id="t-p10" class="howto-toggle"><label for="t-p10" class="extap" style="grid-column:1/-1;font-size:13px;padding:4px 10px;display:block;">How to: Vacuum Holds &rarr;</label><div class="howto howto-p10"><div class="section pink">P10: Vacuum Holds</div><div class="section pink" style="margin-top:6px">What are they</div><div class="text" style="white-space:normal">A core drill where you gently draw your abdomen inward and hold while breathing under control. Trains the transverse abdominis — acts like an internal corset.</div><div class="section pink" style="margin-top:6px">How to do them</div><div class="text" style="white-space:normal">Stand tall, kneel, or lie on your back. Exhale fully. After the exhale, gently pull belly button inward and slightly up. Think "zip the waist in," not crunch down. Keep ribs stacked over pelvis. Hold the tension without shrugging or folding over. Breathe lightly if you can, or use short holds after the exhale. This is a drawing-in drill, not bracing as hard as possible.</div><div class="section pink" style="margin-top:6px">What you should feel</div><div class="text" style="white-space:normal">Deep tension around the waist. A drawing-in feeling through the lower abdomen. Not a hard crunch or braced-out stomach.</div><div class="section pink" style="margin-top:6px">How much</div><div class="text" style="white-space:normal">Start with 3–5 sets of 15–30 seconds. Quality over forcing longer holds.</div><div class="section pink" style="margin-top:6px">Why it's in the plan</div><div class="text" style="white-space:normal">Helps with waist control. Improves awareness of ribcage/pelvis position. Pairs well with breathing drills, planks, and glute work. Supports the appearance of a tighter midsection.</div><div class="section pink" style="margin-top:6px">Common mistakes</div><div class="text" style="white-space:normal">Sucking in from the chest only. Holding your breath too aggressively. Rounding forward. Gripping hip flexors or glutes too hard. Confusing it with bracing as hard as possible.</div><div class="section pink" style="margin-top:6px">Quick cue</div><div class="text" style="white-space:normal">Exhale, ribs down, draw the lower waist inward.</div><label for="t-p10" class="backbtn extap" style="display:inline-block">Close</label></div><div class="section cyan" id="sec-cooldown">🔷 Mobility / Cool-down (~30m) <span class="sec-badge sec-badge-cd" id="wcd-cooldown"></span></div><div class="text">Standing forward fold or seated fold — 60 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Frog stretch — 45–60 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Wide straddle fold — 45–60 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Kneeling hip flexor stretch — 45–60 sec/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Front split prep / hold with props — 30–45 sec/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Across-chest shoulder stretch · back chest stretch · bent-arm chest stretch</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Supine hamstring stretch with strap</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Half split — 45 sec/side (energy-permitting)</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Calf stretch — 2–3x30–45 sec/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Hamstring strap stretch — 2–3x30–60 sec/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Seated forward fold — 2–3x30–60 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Standing soft-knee forward fold — 2–3x30–60 sec</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Contract-relax fold — 3–4 rounds (contract 5–6 sec, sink 20–30 sec)</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"><div class="text">Nerve floss (optional) — 1–2x8–10 glides/side</div><input class="box" placeholder="wt"><input class="box" placeholder="reps"><input class="box" placeholder="wt"><input class="box" placeholder="reps"></div>
+
+</div>
+</div>
+</div>
+
+<script id="wt-js">
+(function(){
+  var S=[{"id": "warmup", "mins": 10}, {"id": "cardio", "mins": 60}, {"id": "core", "mins": 10}, {"id": "cooldown", "mins": 30}];
+  var totalSec=0,totalMins=110;
+  for(var i=0;i<S.length;i++) totalSec+=S[i].mins*60;
+  var acc=0,t0=null,running=false,ivl=null;
+  function pad(n){return n<10?'0'+n:''+n;}
+  function fmt(s){
+    if(s<=0)return'00:00';
+    var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;
+    return h>0?pad(h)+':'+pad(m)+':'+pad(sc):pad(m)+':'+pad(sc);
+  }
+  function g(id){return document.getElementById(id);}
+  function elapsed(){return acc+(running?Date.now()-t0:0);}
+  function tick(){
+    var e=Math.floor(elapsed()/1000),r=Math.max(0,totalSec-e);
+    var em=g('wt-main');if(em)em.textContent=fmt(r);
+    var es=g('wt-sub');if(es)es.textContent=fmt(e)+' elapsed';
+    var cur=0;
+    for(var i=0;i<S.length;i++){
+      var ss=S[i].mins*60,end=cur+ss,el=g('wcd-'+S[i].id);
+      if(el){
+        if(e<cur){el.textContent=fmt(ss);el.className='sec-badge-cd';}
+        else if(e<end){var rem=end-e;el.textContent=fmt(rem);el.className=rem<=60?'sec-badge-cd urgent':'sec-badge-cd';}
+        else{el.textContent='✓';el.className='sec-badge-cd';}
+      }
+      cur+=ss;
+    }
+    if(r<=0){clearInterval(ivl);running=false;_b(false);}
+  }
+  function _b(on){
+    var sb=g('wt-start'),pb=g('wt-pause');
+    if(!sb||!pb)return;
+    sb.style.display=on?'none':'inline-block';
+    pb.style.display=on?'inline-block':'none';
+  }
+  window.wtStart=function(){if(running)return;t0=Date.now();running=true;_b(true);ivl=setInterval(tick,500);tick();};
+  window.wtPause=function(){if(!running)return;acc+=Date.now()-t0;running=false;clearInterval(ivl);var sb=g('wt-start');if(sb)sb.textContent='▶ Resume';_b(false);};
+  window.wtReset=function(){
+    clearInterval(ivl);running=false;acc=0;t0=null;
+    var sb=g('wt-start');if(sb)sb.textContent='▶ Start';
+    _b(false);
+    var em=g('wt-main');if(em)em.textContent=fmt(totalSec);
+    var es=g('wt-sub');if(es)es.textContent='~'+totalMins+' min total';
+    for(var i=0;i<S.length;i++){var el=g('wcd-'+S[i].id);if(el){el.textContent=fmt(S[i].mins*60);el.className='sec-badge-cd';}}
+  };
+})();
+</script>
+
+<script id="wt-secfloat-js">
+(function(){
+  var bar=document.querySelector('.wt-sticky');
+  var flo=document.getElementById('wt-secfloat');
+  if(!bar||!flo)return;
+  var nameEl=document.getElementById('wt-sf-name');
+  var cdEl=document.getElementById('wt-sf-cd');
+  var nextEl=document.getElementById('wt-sf-next');
+  var cds=[].slice.call(document.querySelectorAll('.section [id^="wcd-"]'));
+  var secs=cds.map(function(cd){
+    var header=cd.closest('.section');
+    var clone=header.cloneNode(true);
+    var b=clone.querySelector('.sec-badge'); if(b)b.parentNode.removeChild(b);
+    return {header:header, cd:cd, name:clone.textContent.trim()};
+  });
+  if(!secs.length)return;
+  function barH(){return bar.getBoundingClientRect().height;}
+  function pad(){
+    var h=barH();
+    flo.style.top=h+'px';
+    var extra=(flo.style.display!=='none')?flo.getBoundingClientRect().height:0;
+    document.body.style.paddingTop=(h+extra+4)+'px';
+  }
+  var lastIdx=-2;
+  function update(){
+    var line=barH()+2, idx=-1;
+    for(var i=0;i<secs.length;i++){
+      if(secs[i].header.getBoundingClientRect().top<=line+1) idx=i;
+    }
+    if(idx<0){
+      if(flo.style.display!=='none'){flo.style.display='none';pad();lastIdx=-1;}
+      return;
+    }
+    if(flo.style.display==='none'){flo.style.display='flex';}
+    nameEl.textContent=secs[idx].name;
+    cdEl.textContent=secs[idx].cd.textContent;
+    cdEl.className=(secs[idx].cd.className.indexOf('urgent')>=0)?'wt-sf-cd urgent':'wt-sf-cd';
+    if(idx+1<secs.length){
+      var nm=secs[idx+1].name.replace(/^[^A-Za-z0-9]+/,'').trim();
+      nextEl.textContent='Next: '+nm;
+    } else { nextEl.textContent='Last section'; }
+    if(idx!==lastIdx){pad();lastIdx=idx;}
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',function(){pad();update();});
+  setInterval(function(){if(flo.style.display!=='none')update();},500);
+  pad();update();
+})();
+</script>
+<div class="rt-widget" id="rt-widget">
+  <div class="rt-picker" id="rt-picker">
+    <button class="rt-btn" onclick="rtStart(30);return false;">30s</button>
+    <button class="rt-btn" onclick="rtStart(45);return false;">45s</button>
+    <button class="rt-btn" onclick="rtStart(60);return false;">60s</button>
+  </div>
+  <div class="rt-active" id="rt-active" style="display:none">
+    <svg class="rt-ring" viewBox="0 0 76 76">
+      <circle class="rt-ring-bg" cx="38" cy="38" r="33"></circle>
+      <circle class="rt-ring-fg" id="rt-ring-fg" cx="38" cy="38" r="33"></circle>
+    </svg>
+    <span class="rt-num" id="rt-num">30</span>
+    <button class="rt-cancel" id="rt-cancel" onclick="rtCancel();return false;">&#10005;</button>
+  </div>
+</div>
+<script id="rest-timer-js">
+(function(){
+  var picker=document.getElementById('rt-picker');
+  var active=document.getElementById('rt-active');
+  var numEl=document.getElementById('rt-num');
+  var ring=document.getElementById('rt-ring-fg');
+  var C=2*Math.PI*33;
+  ring.style.strokeDasharray=C.toFixed(2);
+  ring.style.strokeDashoffset='0';
+  var total=0,remain=0,ivl=null,audioCtx=null,lastBucket=0;
+  var chosenVoice=null,voiceTries=0;
+  function pickVoice(){
+    if(!('speechSynthesis' in window))return null;
+    var voices=window.speechSynthesis.getVoices();
+    if(!voices||!voices.length)return null;
+    var prefs=[/samantha/i,/female/i,/zira/i,/victoria/i,/ava\b/i,/allison/i,/google us english/i,/moira/i,/karen/i,/jenny/i];
+    for(var p=0;p<prefs.length;p++){
+      for(var i=0;i<voices.length;i++){
+        if(prefs[p].test(voices[i].name) && /^en/i.test(voices[i].lang)) return voices[i];
+      }
+    }
+    for(var i=0;i<voices.length;i++){
+      if(/en-US/i.test(voices[i].lang)) return voices[i];
+    }
+    return voices[0];
+  }
+  function tryLoadVoice(){
+    if(!('speechSynthesis' in window))return;
+    chosenVoice=pickVoice();
+    if(!chosenVoice&&voiceTries<10){
+      voiceTries++;
+      setTimeout(tryLoadVoice,300);
+    }
+  }
+  if('speechSynthesis' in window){
+    tryLoadVoice();
+    window.speechSynthesis.addEventListener('voiceschanged',tryLoadVoice);
+  }
+  function beep(){
+    try{
+      audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+      var o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      o.type='sine';o.frequency.value=880;
+      o.connect(g);g.connect(audioCtx.destination);
+      g.gain.setValueAtTime(0.18,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.5);
+      o.start();o.stop(audioCtx.currentTime+0.5);
+    }catch(e){}
+  }
+  function speak(text){
+    try{
+      if(!('speechSynthesis' in window))return;
+      var synth=window.speechSynthesis;
+      if(synth.speaking||synth.pending)synth.cancel();
+      var u=new SpeechSynthesisUtterance(text);
+      if(chosenVoice)u.voice=chosenVoice;
+      u.rate=1;u.pitch=1.55;u.volume=1;
+      synth.speak(u);
+    }catch(e){}
+  }
+  function render(){
+    numEl.textContent=remain;
+    var frac=total>0?remain/total:0;
+    ring.style.strokeDashoffset=(C*(1-frac)).toFixed(2);
+  }
+  window.rtStart=function(sec){
+    clearInterval(ivl);
+    total=sec;remain=sec;lastBucket=0;
+    picker.style.display='none';
+    active.style.display='flex';
+    active.classList.remove('done');
+    render();
+    if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      if(!chosenVoice)chosenVoice=pickVoice();
+    }
+    speak("OK babe, let's go");
+    var last=Date.now();
+    ivl=setInterval(function(){
+      var now=Date.now();
+      var delta=(now-last)/1000;
+      if(delta>=1){
+        var whole=Math.floor(delta);
+        remain=Math.max(0,remain-whole);
+        last+=whole*1000;
+        render();
+        var elapsed=total-remain;
+        var bucket=Math.floor(elapsed/10);
+        if(bucket>lastBucket && remain>0){
+          lastBucket=bucket;
+          speak('OK babe, '+remain+' seconds left');
+        }
+      }
+      if(remain<=0){
+        clearInterval(ivl);
+        active.classList.add('done');
+        beep();
+        speak("Babe, that rocked");
+        if(navigator.vibrate)navigator.vibrate([120,60,120]);
+        setTimeout(rtCancel,1500);
+      }
+    },200);
+  };
+  window.rtCancel=function(){
+    clearInterval(ivl);
+    active.style.display='none';
+    active.classList.remove('done');
+    picker.style.display='flex';
+    if('speechSynthesis' in window)window.speechSynthesis.cancel();
+  };
+})();
+</script>
+</body>
+</html>
