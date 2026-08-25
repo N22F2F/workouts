@@ -108,9 +108,9 @@ body{
 
 /* TEXT */
 .text{
-  font-size:14px;line-height:1.7;padding:5px 10px;
+  font-size:14px;line-height:1.5;padding:5px 10px;
   border-radius:8px;color:var(--ink2);
-  word-break:break-word;white-space:nowrap;
+  word-break:break-word;white-space:normal;overflow-wrap:break-word;min-width:0;
   font-family:'Nunito',sans-serif;
 }
 
@@ -210,7 +210,7 @@ html{scroll-behavior:smooth}
 ::-webkit-scrollbar-track{background:rgba(255,182,193,0.05)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ff69b4,#ffb6c1);border-radius:3px}
 
-.content{ display:grid; grid-template-columns:max-content repeat(4, 65px); gap:3px 6px; padding:6px; align-items:center; width:max-content; min-width:100%; }
+.content{ display:grid; grid-template-columns:minmax(0,1fr) repeat(4, 56px); gap:3px 4px; padding:6px; align-items:center; width:100%; max-width:100%; }
 #t-p8:checked ~ .howto-p8,#t-p9:checked ~ .howto-p9,#t-p10:checked ~ .howto-p10{display:block}
 .appendix-hidden{display:none}
 
